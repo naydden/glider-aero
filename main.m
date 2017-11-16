@@ -11,10 +11,10 @@
 % Sv = vertical tail (VTP) area
 % S = wing area
 % lt = distance given in drawing
-% Cm = mean aerodynamic chord of the wing
+% cm = mean aerodynamic chord of the wing
 St_S = 1/8;
 Sv_S = 2/3;
-lt_Cm = 4;
+lt_cm = 4;
 % Assumptions:
 % AR of wing and HTP is high enough (>6) -> lifting line can be assumed
 % Ct/Cr (tip to chord) ratio is left free.

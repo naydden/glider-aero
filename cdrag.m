@@ -1,4 +1,4 @@
-function cd = cd(naca,cl)
+function cd = cdrag(naca,cl)
 if naca == '2412'
     cd = 0.0063 - 0.0033*cl + 0.0067*cl^2;
 elseif naca == '0009'
