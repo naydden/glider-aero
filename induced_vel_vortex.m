@@ -1,9 +1,9 @@
+% returns the induced velocity to a point by all the vortex
 function V = induced_vel_vortex(vort_p,con_p)
 % vort_p is the (Nx+1)x(Ny+1)x3 matrix
 % con_p is x y z of the control point of the vortex we are analyzing
-Nx = size(con_p);
-Nx = Nx(1);
-Ny = Nx(2);
+Nx = size(vort_p,1)-1;
+Ny = size(vort_p,2)-1;
 
 x = con_p(1);
 y = con_p(2);
@@ -49,7 +49,7 @@ for i=1:Nx
             y_e = vort_p(i,j+1,2);
             z_e = vort_p(i,j+1,3);
             V_bc = vel_seminfline(x_e,y_e,z_e,x,y,z,'CD');
-            V_cd = [0 0 0];
+            V_cd = [0; 0; 0;];
             x_e = vort_p(i,j,1);
             y_e = vort_p(i,j,2);
             z_e = vort_p(i,j,3);

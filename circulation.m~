@@ -5,24 +5,24 @@ function Gamma = circulation(Uinf,vortice_mat,control,n)
 % Uinf: VECTOR of freestream velocity
 Nx = size(vortice_mat,1)-1;
 Ny = size(vortice_mat,2)-1;
-Nint = Nx*Ny; % Number of control points
+Nint = size(n,1); % Number of control points
 
 a = influence_coef(vortice_mat,control,n);
 b = zeros(Nint);
-n_vector = zeros(Nx*Ny,3);
-% transformation from Matrix to vector of n
+n_vector = zeros(Nx*Ny);
 for l = 1:Nx
     for m = 1:Ny
-        n_vector((l-1)*Ny+m,:) = n(l,m,:);
+        n_vector((l-1)*Ny+m) = n(l,m);
     end
 end
 
 for i = 1:Nint % loop over the control points
     % Calculation of the RHS coeficients (b)
-    b(i) = -dot(Uinf,n_vector(i,:));
+    b(i) = -dot(Uinf,n_vector(i,);
 end
 
 % Computation of the circulation (Gamma)
+disp(n)
 Gamma = a\b;
 
 end
