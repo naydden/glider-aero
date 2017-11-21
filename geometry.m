@@ -1,4 +1,4 @@
-function [Coord,CoordP,CoordC] = geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral)
+function [Coord,CoordP,CoordC,n] = geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral)
 
 x=zeros(Nx+1,Ny+1);
 y=zeros(Nx+1,Ny+1);
@@ -9,6 +9,7 @@ zp=zeros(Nx+1,Ny+1);
 xc=zeros(Nx,Ny);
 yc=zeros(Nx,Ny);
 zc=zeros(Nx,Ny);
+n=zeros(Nx,Ny,3);
 
 for i=1:Nx+1
     y(i,:)=linspace(0,b/2,Ny+1); %Y Coordinate of the points of the elemnts
@@ -24,6 +25,10 @@ for j=1:Ny+1
         z(i,j)=camber(xadim,m,p)+y(i,j)*tand(dihedral); %Z Coordinate of the points of the elemnts
         xadimp=(xp(i,j)-x(1,j))/c; %Adimensionalization of the x coordinatie of the vector
         zp(i,j)=camber(xadim,m,p)+yp(i,j)*tand(dihedral); %Z Coordinate of the points of the vortex
+        if c==0
+            z(i,j)=y(i,j)*tand(dihedral);
+            zp(i,j)=yp(i,j)*tand(dihedral);
+        end
     end
 end
 
@@ -36,6 +41,14 @@ for j=1:Ny
         xc(i,j)=cr/4-c/4+c*(i-1)/Nx+c*3/(4*Nx)+yc(i,j)*tand(sweep); %X Coordinate  of the control points
         xadimc=(xc(i,j)-((x(1,j)+x(1,j+1))/2))/c; %Adimensionalization  of the x coordinate of the control point
         zc(i,j)=camber(xadimc,m,p)+yc(i,j)*tand(dihedral); %Z Coordinate  of the control points
+    end
+end
+
+for i=1:Nx
+    for j=1:Ny
+        AC=[xp(i+1,j+1)-xp(i,j) yp(i+1,j+1)-yp(i,j) zp(i+1,j+1)-zp(i,j)];
+        DB=[xp(i,j+1)-xp(i+1,j) yp(i,j+1)-yp(i+1,j) zp(i,j+1)-zp(i+1,j)];
+        n(i,j,:)=cross(AC,DB)/norm(cross(AC,DB));
     end
 end
 
