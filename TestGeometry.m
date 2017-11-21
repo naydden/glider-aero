@@ -6,20 +6,14 @@ ct=0.5;
 b=10;
 m=0.02;
 p=0.4;
-flecha=20;
-diedro=10;
+sweep=20;
+dihedral=10;
 
-x=zeros(Nx+1,Ny+1);
-y=zeros(Nx+1,Ny+1);
-z=zeros(Nx+1,Ny+1);
-xp=zeros(Nx+1,Ny+1);
-yp=zeros(Nx+1,Ny+1);
-zp=zeros(Nx+1,Ny+1);
-xc=zeros(Nx,Ny);
-yc=zeros(Nx,Ny);
-zc=zeros(Nx,Ny);
+Coord=zeros(Nx+1,Ny+1,3);
+CoordP=zeros(Nx+1,Ny+1,3);
+CoordC=zeros(Nx,Ny,3);
 
-[x,y,z,xp,yp,zp,xc,yc,zc] = geometry (cr,ct,b,Nx,Ny,m,p,flecha,diedro);
+[Coord,CoordP,CoordC] = geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral);
 
-surf(x,y,z);
+surf(Coord(:,:,1),Coord(:,:,2),Coord(:,:,3));
 axis equal;
