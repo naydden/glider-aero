@@ -44,7 +44,7 @@ Gamma = circulation(Uinf,CoordP,CoordC,n);
 dL = delta_lift(Gamma,b,Nx,Ny,ro,Uinf);
 dDind = delta_drag(CoordP,CoordD,Gamma,b,Nx,Ny,ro,Uinf);
 L = lift(dL,Nx,Ny);
-M = moment(dL,Nx,Ny,CoordC(:,:,1));
+M = moment(dL,Nx,Ny,CoordP(:,:,1));
 Dind = drag(dDind,Nx,Ny);
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
 %% Part 2: PLotting wing's aerodynamic polar for alpha 0 to 10 deg.

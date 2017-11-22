@@ -3,14 +3,11 @@
 function M = moment(dL,Nx,Ny,Xp)
     M = 0;
     for j=1:Ny
-        for i=2:Nx
-        % Not sure how to treat last element             
-            if j==Ny
-                Xpm = Xp(i,j);
-            else
-                Xpm = (Xp(i,j)+Xp(i,j+1))/2;
-            end
-            M = M + Xpm*dL(i,j);
+        for i=1:Nx
+                 
+          Xpm = (Xp(i,j)+Xp(i,j+1))/2;
+          M = M + Xpm*dL(i,j);
+          
         end
     end
     M = -M;
