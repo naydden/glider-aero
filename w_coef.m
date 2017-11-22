@@ -20,6 +20,7 @@ for i=1:Nx
         V_vortex = induced_vel_vortex(vortice_mat,coord_d);
         
         % Compute the total induced velocity at control point (i,j)
+        Vind = 0;
         for l=1:Nx*Ny
             Vind = Vind + V_vortex(:,l) * Gamma(l);
         end
