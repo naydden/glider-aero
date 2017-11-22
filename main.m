@@ -42,6 +42,7 @@ ro = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 [Coord,CoordP,CoordC,n] = geometry (cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral);
 Gamma = circulation(Uinf,CoordP,CoordC,n);
 dL = delta_lift(Gamma,b,Nx,Ny,ro,Uinf);
+dD = delta_drag(CoordP,CoordC,Gamma,b,Nx,Ny,ro,Uinf);
 L = lift(dL,Nx,Ny)
 M = moment(dL,Nx,Ny,CoordC(:,:,1))
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
