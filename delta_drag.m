@@ -1,10 +1,10 @@
 
 % Function that computes the induced drag of each vortex element
 
-function dD = delta_drag(vortice_mat,control,Gamma,b,Nx,Ny,ro,Uinf)
+function dDind = delta_drag(vortice_mat,control,Gamma,b,Nx,Ny,ro,Uinf)
 
     deltaY = b/(2*Ny);
-    dD = zeros(Nx,Ny);
+    dDind = zeros(Nx,Ny);
     Gamma_new = zeros(Nx,Ny);
     
     w = w_coef(vortice_mat,control,Uinf,Gamma)
@@ -16,10 +16,10 @@ function dD = delta_drag(vortice_mat,control,Gamma,b,Nx,Ny,ro,Uinf)
             Gamma_new(i,j) = Gamma((i-1)*Ny+j);
             
             if i == 1
-                dD(i,j) = ro*Gamma_new(1,j)*w(1,j)*deltaY;
+                dDind(i,j) = ro*Gamma_new(1,j)*w(1,j)*deltaY;
                 
             else
-                dD(i,j) = ro*(Gamma_new(i,j)- Gamma_new(i-1,j))*w(i,j)*deltaY;
+                dDind(i,j) = ro*(Gamma_new(i,j)- Gamma_new(i-1,j))*w(i,j)*deltaY;
             end
             
         end
