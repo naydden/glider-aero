@@ -13,11 +13,11 @@ for i=1:Nx
     for j=1:Ny
         
         % Coordinates of each control point
-        coord_c = [control(i,j,1) control(i,j,2) control(i,j,3)];
+        coord_d = [control(i,j,1) control(i,j,2) control(i,j,3)];
         
         % Compute the induced velocity by all the vortex at the control
         % point (i,j)
-        V_vortex = induced_vel_vortex(vortice_mat,coord_c);
+        V_vortex = induced_vel_vortex(vortice_mat,coord_d);
         
         % Compute the total induced velocity at control point (i,j)
         for l=1:Nx*Ny
