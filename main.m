@@ -43,8 +43,9 @@ ro = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 Gamma = circulation(Uinf,CoordP,CoordC,n);
 dL = delta_lift(Gamma,b,Nx,Ny,ro,Uinf);
 dD = delta_drag(CoordP,CoordC,Gamma,b,Nx,Ny,ro,Uinf);
-L = lift(dL,Nx,Ny)
-M = moment(dL,Nx,Ny,CoordC(:,:,1))
+L = lift(dL,Nx,Ny);
+M = moment(dL,Nx,Ny,CoordC(:,:,1));
+D = drag(dD,Nx,Ny);
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
 %% Part 2: PLotting wing's aerodynamic polar for alpha 0 to 10 deg.
 %% Part 3: Assumption -> Ground Effect. Plot CL and CD for alpha 6deg, against AR 0.075Ao to 1.25Ao
