@@ -1,5 +1,5 @@
 function dL = delta_lift(Gamma,b,Nx,Ny,ro,Uinf)
-    deltaY = (2*Ny)/b;
+    deltaY = b/(2*Ny);
     dL = zeros(Nx,Ny);
     Gamma_new = zeros(Nx,Ny);
     for j=1:Ny
