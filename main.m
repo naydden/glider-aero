@@ -4,7 +4,7 @@
 %   - Laura Pla
 %   - Josep Maria Serra Moncunill
 %   - Boyan Naydenov
-% Subject: Aerdonyamics, Flight and Orbital Mechanics.
+% Subject: Aerodynamics, Flight and Orbital Mechanics.
 % Date: December 5th, 2017
 %% Data
 % St = horizontal tail (HTP) area
