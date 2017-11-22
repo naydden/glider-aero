@@ -1,4 +1,4 @@
-function [Coord,CoordP,CoordC,n] = geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral)
+function [Coord,CoordP,CoordC,CoordD,n] = geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral)
 
 x=zeros(Nx+1,Ny+1);
 y=zeros(Nx+1,Ny+1);
@@ -39,8 +39,11 @@ for j=1:Ny
     c=cr-(cr-ct)*yc(1,j)/(b/2); %Chord of the wing segment
     for i=1:Nx
         xc(i,j)=cr/4-c/4+c*(i-1)/Nx+c*3/(4*Nx)+yc(i,j)*tand(sweep); %X Coordinate  of the control points
+        xd(i,j)=(xp(i,j)+xp(i,j+1))/2;  % X Coordinate of the drag control points
         xadimc=(xc(i,j)-((x(1,j)+x(1,j+1))/2))/c; %Adimensionalization  of the x coordinate of the control point
+        xadimd=(xd(i,j)-((x(1,j)+x(1,j+1))/2))/c; %Adimensionalization  of the x coordinate of the drag control point
         zc(i,j)=camber(xadimc,m,p)+yc(i,j)*tand(dihedral); %Z Coordinate  of the control points
+        zd(i,j)=camber(xadimd,m,p)+yc(i,j)*tand(dihedral); %Z Coordinate of the drag control points
     end
 end
 
@@ -61,5 +64,8 @@ end
     CoordC(:,:,1)=xc(:,:);
     CoordC(:,:,2)=yc(:,:);
     CoordC(:,:,3)=zc(:,:);
+    CoordD(:,:,1)=xd(:,:);
+    CoordD(:,:,2)=yc(:,:);
+    CoordD(:,:,3)=zd(:,:);
     
 end
