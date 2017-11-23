@@ -36,10 +36,10 @@ i_w_htp_0 = -4; %degrees
 % - Lifting line
 %% ONLY FOR ISOLATED WING
 %% Input
-cr=1; ct=1; b=20; Nx=3; Ny=3; sweep=0; dihedral=0; alpha=0; 
+cr=1; ct=1; b=20; Nx=3; Ny=3; sweep=0; dihedral=0; twist=0; alpha=0; 
 ro = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 %% Preliminary
-[Coord,CoordP,CoordC,CoordD,n] = geometry (cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral);
+[Coord,CoordP,CoordC,CoordD,n] = geometry (cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist);
 Gamma = circulation(Uinf,CoordP,CoordC,n);
 dL = delta_lift(Gamma,b,Nx,Ny,ro,Uinf);
 dDind = delta_drag(CoordP,CoordD,Gamma,b,Nx,Ny,ro,Uinf);

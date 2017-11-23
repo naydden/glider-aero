@@ -1,4 +1,6 @@
-function [Coord,CoordP,CoordC,CoordD,n] = geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral)
+%Function that computs the geometric points and vectors needed for the
+%program
+function [Coord,CoordP,CoordC,CoordD,n] = geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist)
 
 x=zeros(Nx+1,Ny+1);
 y=zeros(Nx+1,Ny+1);
@@ -11,11 +13,11 @@ yc=zeros(Nx,Ny);
 zc=zeros(Nx,Ny);
 n=zeros(Nx,Ny,3);
 
+%Geometry points and vortex points
 for i=1:Nx+1
     y(i,:)=linspace(0,b/2,Ny+1); %Y Coordinate of the points of the elemnts
     yp(i,:)=linspace(0,b/2,Ny+1); %Y Coordinate of the points of the vortex
 end
-
 for j=1:Ny+1
     c=cr-(cr-ct)*y(1,j)/(b/2); %Computation of the chord of the wing segment
     for i=1:Nx+1
@@ -24,7 +26,7 @@ for j=1:Ny+1
         xadim=(x(i,j)-x(1,j))/c; %Adimensionalization of the x coordinatie of the points
         z(i,j)=camber(xadim,m,p)+y(i,j)*tand(dihedral); %Z Coordinate of the points of the elemnts
         xadimp=(xp(i,j)-x(1,j))/c; %Adimensionalization of the x coordinatie of the vector
-        zp(i,j)=camber(xadim,m,p)+yp(i,j)*tand(dihedral); %Z Coordinate of the points of the vortex
+        zp(i,j)=camber(xadimp,m,p)+yp(i,j)*tand(dihedral); %Z Coordinate of the points of the vortex
         if c==0
             z(i,j)=y(i,j)*tand(dihedral);
             zp(i,j)=yp(i,j)*tand(dihedral);
@@ -32,6 +34,7 @@ for j=1:Ny+1
     end
 end
 
+%Control points for lift and drag
 for j=1:Ny
     for i=1:Nx
         yc(i,j)=(y(i,j)+y(i,j+1))/2; %Y Coordinate  of the control points
@@ -47,11 +50,44 @@ for j=1:Ny
     end
 end
 
+%Twist for geomety and vortex points
+for i=1:Nx+1
+    for j=1:Ny+1
+        twisti=twist*y(i,j)/(b/2);
+        xtwist=0.25*cr+(x(i,j)-0.25*cr)*cosd(twisti)+z(i,j)*sind(twisti);
+        ztwist=z(i,j)*cosd(twisti)-(x(i,j)-0.25*cr)*sind(twisti);
+        x(i,j)=xtwist;
+        z(i,j)=ztwist;
+        xtwist=0.25*cr+(xp(i,j)-0.25*cr)*cosd(twisti)+zp(i,j)*sind(twisti);
+        ztwist=zp(i,j)*cosd(twisti)-(xp(i,j)-0.25*cr)*sind(twisti);
+        xp(i,j)=xtwist;
+        zp(i,j)=ztwist;
+    end
+end
+
+%Twist for control points
+for i=1:Nx
+    for j=1:Ny
+        twisti=twist*yc(i,j)/(b/2);
+        xtwist=0.25*cr+(xc(i,j)-0.25*cr)*cosd(twisti)+zc(i,j)*sind(twisti);
+        ztwist=zc(i,j)*cosd(twisti)-(xc(i,j)-0.25*cr)*sind(twisti);
+        xc(i,j)=xtwist;
+        zc(i,j)=ztwist;
+        xtwist=0.25*cr+(xd(i,j)-0.25*cr)*cosd(twisti)+zd(i,j)*sind(twisti);
+        ztwist=zd(i,j)*cosd(twisti)-(xd(i,j)-0.25*cr)*sind(twisti);
+        xd(i,j)=xtwist;
+        zd(i,j)=ztwist;
+    end
+end
+
+%Normal vector
 for i=1:Nx
     for j=1:Ny
         AC=[xp(i+1,j+1)-xp(i,j) yp(i+1,j+1)-yp(i,j) zp(i+1,j+1)-zp(i,j)];
         DB=[xp(i,j+1)-xp(i+1,j) yp(i,j+1)-yp(i+1,j) zp(i,j+1)-zp(i+1,j)];
-        n(i,j,:)=cross(AC,DB)/norm(cross(AC,DB));
+        ni=cross(AC,DB);
+        ni=ni/norm(ni);
+        n(i,j,:)=ni;
     end
 end
 
