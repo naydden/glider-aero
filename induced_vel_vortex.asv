@@ -45,14 +45,14 @@ for i=1:Nx
             y_c = vort_p(i+1,j,2);
             z_c = vort_p(i+1,j,3);
             
-             CD=[x_b-x_c y_b-y_c z_b-z_c];
-             CP=[x_b-x y_b-y z_b-z];
+             AB=[x_b-x_c y_b-y_c z_b-z_c];
+             AP=[x_b-x y_b-y z_b-z];
         
-             if norm(cross(CD,CP))==0
-                V_cd = [0;0;0];
-             else
-                V_cd = vel_segment(x_b,y_b,z_b,x_c,y_c,z_c,x,y,z);
-             end 
+        if norm(cross(AB,AP))==0
+           V_ab = [0;0;0];
+        else
+            
+            V_cd = vel_segment(x_b,y_b,z_b,x_c,y_c,z_c,x,y,z);
 
             x_b = vort_p(i+1,j,1);
             y_b = vort_p(i+1,j,2);
