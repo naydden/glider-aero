@@ -4,32 +4,26 @@
 
 function w = w_coef(vortice_mat,control,Uinf,Gamma)
 
-Nx = size(vortice_mat,1)-1;
-Ny = size(vortice_mat,2)-1;
-w = zeros(Nx,Ny);
+N = size(vortice_mat,1);
+w = zeros(N,N);
 J = [0,1,0];
 
-for i=1:Nx
-    for j=1:Ny
-        
-        % Coordinates of each control point
-        coord_d = [control(i,j,1) control(i,j,2) control(i,j,3)];
-        
-        % Compute the induced velocity by all the vortex at the control
-        % point (i,j)
-        V_vortex = induced_vel_vortex(vortice_mat,coord_d);
-        
-        % Compute the total induced velocity at control point (i,j)
-        Vind = 0;
-        for l=1:Nx*Ny
-            Vind = Vind + V_vortex(:,l) * Gamma(l);
-        end
-        
+for i=1:N       
+    % Coordinates of each control point
+    coord_d = [control(i,1) control(i,2) control(i,3)];
+
+    % Compute the induced velocity by all the vortex at the control
+    % point (i)
+    V_vortex = induced_vel_vortex(vortice_mat,coord_d);
+
+    % Compute the total induced velocity at control point (i)
+    Vind = 0;
+    for l=1:N
+        Vind = Vind + V_vortex(:,l) * Gamma(l);
         % Compute the w coeficient
         nom = dot(cross(Uinf,Vind),J);
         denom = norm(Uinf);
-        w(i,j) = nom/denom;
-        
+        w(i,l) = nom/denom;
     end
 end
 
