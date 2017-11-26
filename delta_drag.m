@@ -7,7 +7,7 @@ function dDind = delta_drag(vortice_mat,control,Gamma,b,Nx,Ny,ro,Uinf)
     dDind = zeros(Nx,Ny);
     Gamma_new = zeros(Nx,Ny);
     
-    w = w_coef(vortice_mat,control,Uinf,Gamma)
+    w = w_coef(vortice_mat,control,Uinf,Gamma);
     
     for j=1:Ny
         for i=1:Nx

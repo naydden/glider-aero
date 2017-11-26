@@ -1,6 +1,6 @@
 %Function that computs the geometric points and vectors needed for the
 %program
-function [Coord,CoordP,CoordC,CoordD,n] = geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist)
+function [Coord,Vortex,ControlP,DragP,Normal] = geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist)
 
 x=zeros(Nx+1,Ny+1);
 y=zeros(Nx+1,Ny+1);
@@ -11,7 +11,15 @@ zp=zeros(Nx+1,Ny+1);
 xc=zeros(Nx,Ny);
 yc=zeros(Nx,Ny);
 zc=zeros(Nx,Ny);
+xd=zeros(Nx,Ny);
+zd=zeros(Nx,Ny);
 n=zeros(Nx,Ny,3);
+
+Coord=zeros(Nx+1,Ny+1,3);
+Vortex=zeros(5,Nx*Ny,3);
+ControlP=zeros(Nx*Ny,3);
+DragP=zeros(Nx*Ny,3);
+Normal=zeros(Nx*Ny,3);
 
 %Geometry points and vortex points
 for i=1:Nx+1
@@ -91,17 +99,25 @@ for i=1:Nx
     end
 end
 
-    Coord(:,:,1)=x(:,:);
-    Coord(:,:,2)=y(:,:);
-    Coord(:,:,3)=z(:,:);
-    CoordP(:,:,1)=xp(:,:);
-    CoordP(:,:,2)=yp(:,:);
-    CoordP(:,:,3)=zp(:,:);
-    CoordC(:,:,1)=xc(:,:);
-    CoordC(:,:,2)=yc(:,:);
-    CoordC(:,:,3)=zc(:,:);
-    CoordD(:,:,1)=xd(:,:);
-    CoordD(:,:,2)=yc(:,:);
-    CoordD(:,:,3)=zd(:,:);
+Coord(:,:,1)=x(:,:);
+Coord(:,:,2)=y(:,:);
+Coord(:,:,3)=z(:,:);
+
+for i=1:Nx
+    for j=1:Ny
+        Vortex(1,(i-1)*Ny+j,:)=[xp(i,j) yp(i,j) zp(i,j)];
+        Vortex(2,(i-1)*Ny+j,:)=[xp(i,j+1) yp(i,j+1) zp(i,j+1)];
+        Vortex(3,(i-1)*Ny+j,:)=[xp(i+1,j+1) yp(i+1,j+1) zp(i+1,j+1)];
+        Vortex(4,(i-1)*Ny+j,:)=[xp(i+1,j) yp(i+1,j) zp(i+1,j)];
+        ControlP((i-1)*Ny+j,:)=[xc(i,j) yc(i,j) zc(i,j)];
+        DragP((i-1)*Ny+j,:)=[xd(i,j) yc(i,j) zd(i,j)];
+        Normal((i-1)*Ny+j,:)=n(i,j,:);
+        if i==Nx
+            Vortex(5,(i-1)*Ny+j,:)=1;
+        else
+            Vortex(5,(i-1)*Ny+j,:)=0;
+        end
+    end
+end
     
 end
