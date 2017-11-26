@@ -13,7 +13,7 @@ sweep=10;
 dihedral=5;
 twist=10;
 
-[Coord,Vortex,ControlP,DragP,Normal] = geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist);
+[Coord,Vortex,ControlP,DragP,Normal] = total_geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist);
 
 surf(Coord(:,:,1),Coord(:,:,2),Coord(:,:,3));
 axis equal;
