@@ -10,7 +10,7 @@ N = size(vortice_mat,2); % Number of control points
 a = influence_coef(vortice_mat,control,n);
 % a: MATRIX of induced coefficients in the control points (NintxNint) where
 % a(i,j) is theinfluence coefficient in the control point i induced by the vortex j
-b = zeros(N);
+b = zeros(N,1);
 
 for i = 1:N % loop over the control points
     % Calculation of the RHS coeficients (b)
