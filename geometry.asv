@@ -133,20 +133,18 @@ end
 %Normal vector
 for i=1:Nx
     for j=1:Ny
-        AC=[xp(i+1,j+1)-xp(i,j) yp(i+1,j+1)-yp(i,j) zp(i+1,j+1)-zp(i,j)]; %Vector from A to C of the vortex ring
-        DB=[xp(i,j+1)-xp(i+1,j) yp(i,j+1)-yp(i+1,j) zp(i,j+1)-zp(i+1,j)]; %Vector from D to B of the vortex ring
-        ni=cross(AC,DB); %Normal vector to AC and DB
-        ni=ni/norm(ni); %Normalized vector
+        AC=[xp(i+1,j+1)-xp(i,j) yp(i+1,j+1)-yp(i,j) zp(i+1,j+1)-zp(i,j)]; %Vector from A to C of the vor
+        DB=[xp(i,j+1)-xp(i+1,j) yp(i,j+1)-yp(i+1,j) zp(i,j+1)-zp(i+1,j)];
+        ni=cross(AC,DB);
+        ni=ni/norm(ni);
         n(i,j,:)=ni;
     end
 end
 
-%Global coordinates matrix
 Coord(:,:,1)=x(:,:);
 Coord(:,:,2)=y(:,:);
 Coord(:,:,3)=z(:,:);
 
-%Global arrays
 for i=1:Nx
     for j=1:Ny
         Vortex(1,(i-1)*Ny+j,:)=[xp(i,j) yp(i,j) zp(i,j)];
@@ -157,9 +155,9 @@ for i=1:Nx
         DragP((i-1)*Ny+j,:)=[xd(i,j) yc(i,j) zd(i,j)];
         Normal((i-1)*Ny+j,:)=n(i,j,:);
         if i==Nx
-            Vortex(5,(i-1)*Ny+j,:)=1; %Horshoe vortex attached
+            Vortex(5,(i-1)*Ny+j,:)=1;
         else
-            Vortex(5,(i-1)*Ny+j,:)=0; %No horseshoe vortex attached
+            Vortex(5,(i-1)*Ny+j,:)=0;
         end
     end
 end
