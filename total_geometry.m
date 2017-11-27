@@ -1,31 +1,36 @@
 % It calculates the geometry of the whole wing
-function [Coord,Vortex,ControlP,DragP,Normal] = total_geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist)
+function [Coord,Vortex,ControlC,DragP,Normal] = total_geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist)
+% b: wingspan of the WHOLE wing
+% Ny: number of elements of the WHOLE wing (it has to be an even number)
 
 % Geometry of the left semi-wing
-[Coord_left,CoordP_left,CoordC_left,CoordD_left,n_left] = geometry (cr,ct,-b/2,Nx,Ny/2,m,p,sweep,dihedral,twist);
+[Coord_left,Vortex_left,ControlC_left,DragP_left,Normal_left] = geometry (cr,ct,-b,Nx,Ny/2,m,p,sweep,dihedral,twist);
 
 % Geometry of the right semi-wing
-[Coord_right,CoordP_right,CoordC_right,CoordD_right,n_right] = geometry (cr,ct,b/2,Nx,Ny/2,m,p,sweep,dihedral,twist);
+[Coord_right,Vortex_right,ControlC_right,DragP_right,Normal_right] = geometry (cr,ct,b,Nx,Ny/2,m,p,sweep,dihedral,twist);
 
 N = Nx*Ny;
 Coord=zeros(Nx+1,Ny+1,3);
 Vortex=zeros(5,N,3);
-ControlP=zeros(N,3);
+ControlC=zeros(N,3);
 DragP=zeros(N,3);
 Normal=zeros(N,3);
 
 % Assembly
-for j = 1:Ny
-    for i = 1:Nx
+for j = 1:Ny+1
+    for i = 1:Nx+1
         if j<=Ny/2+1
-            Coord(i,j,1) = Coord_left(i,j,1);
-            Coord(i,j,2) = Coord_left(i,j,2);
-            Coord(i,j,3) = Coord_left(i,j,3);
+            Coord(i,j,:) = Coord_left(i,j,:);
         else
-            Coord(i,j,1) = Coord_right(i,j-Ny/2+1,1);
-            Coord(i,j,2) = Coord_right(i,j-Ny/2+1,2);
-            Coord(i,j,3) = Coord_right(i,j-Ny/2+1,3);
+            Coord(i,j,:) = Coord_right(i,j-Ny/2,:);
         end
     end
 end
+% 
+% for i = 1:N
+%     if i<=N/2
+%         Vortex=zeros(5,N,3);
+%         ControlC(i,:) = ControlC_left(i,:);
+%         DragP(i,j) = DragP_left(i,j);
+%         Normal(i,j) =zeros(N,3);
 end
