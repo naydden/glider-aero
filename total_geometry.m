@@ -26,11 +26,17 @@ for j = 1:Ny+1
         end
     end
 end
-% 
-% for i = 1:N
-%     if i<=N/2
-%         Vortex=zeros(5,N,3);
-%         ControlC(i,:) = ControlC_left(i,:);
-%         DragP(i,j) = DragP_left(i,j);
-%         Normal(i,j) =zeros(N,3);
+
+for i = 1:N
+    if i<=N/2
+        ControlC(i,:) = ControlC_left(i,:);
+        DragP(i,:) = DragP_left(i,:);
+        Normal(i,:) = Normal_left(i,:);
+        Vortex(:,i,:) = Vortex_left(:,i,:);
+    else
+        ControlC(i,:) = ControlC_right(i-N/2,:);
+        DragP(i,:) = DragP_right(i-N/2,:);
+        Normal(i,:) = Normal_right(i-N/2,:);
+        Vortex(:,i,:) = Vortex_right(:,i-N/2,:);
+    end
 end
