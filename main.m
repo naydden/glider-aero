@@ -36,16 +36,16 @@ i_w_htp_0 = -4; %degrees
 % - Lifting line
 %% ONLY FOR ISOLATED WING
 %% Input
-cr=1; ct=1; b=20; Nx=3; Ny=3; sweep=0; dihedral=0; twist=0; alpha=0; 
+cr=1; ct=1; b=20; Nx=5; Ny=12; sweep=0; dihedral=0; twist=0; alpha=0; 
 ro = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 %% Preliminary
-[Coord,CoordP,CoordC,CoordD,n] = geometry (cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist);
+[Coord,CoordP,CoordC,CoordD,n] = total_geometry (cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist);
 Gamma = circulation(Uinf,CoordP,CoordC,n);
 dL = delta_lift(Gamma,b,Nx,Ny,ro,Uinf);
-dDind = delta_drag(CoordP,CoordD,Gamma,b,Nx,Ny,ro,Uinf);
+% dDind = delta_drag(CoordP,CoordD,Gamma,b,Nx,Ny,ro,Uinf);
 L = lift(dL,Nx,Ny);
-M = moment(dL,Nx,Ny,CoordP(:,:,1));
-Dind = drag(dDind,Nx,Ny);
+% M = moment(dL,Nx,Ny,CoordP(:,:,1));
+% Dind = drag(dDind,Nx,Ny);
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
 %% Part 2: PLotting wing's aerodynamic polar for alpha 0 to 10 deg.
 %% Part 3: Assumption -> Ground Effect. Plot CL and CD for alpha 6deg, against AR 0.075Ao to 1.25Ao
