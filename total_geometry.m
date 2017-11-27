@@ -1,13 +1,13 @@
 % It calculates the geometry of the whole wing
-function [Coord,Vortex,ControlC,DragP,Normal] = total_geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist)
+function [Coord,Vortex,ControlC,DragP,Normal] = total_geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist,x_offset,z_offset)
 % b: wingspan of the WHOLE wing
 % Ny: number of elements of the WHOLE wing (it has to be an even number)
 
 % Geometry of the left semi-wing
-[Coord_left,Vortex_left,ControlC_left,DragP_left,Normal_left] = geometry (cr,ct,-b,Nx,Ny/2,m,p,sweep,dihedral,twist);
+[Coord_left,Vortex_left,ControlC_left,DragP_left,Normal_left] = geometry (cr,ct,-b,Nx,Ny/2,m,p,sweep,dihedral,twist,x_offset,z_offset);
 
 % Geometry of the right semi-wing
-[Coord_right,Vortex_right,ControlC_right,DragP_right,Normal_right] = geometry (cr,ct,b,Nx,Ny/2,m,p,sweep,dihedral,twist);
+[Coord_right,Vortex_right,ControlC_right,DragP_right,Normal_right] = geometry (cr,ct,b,Nx,Ny/2,m,p,sweep,dihedral,twist,x_offset,z_offset);
 
 N = Nx*Ny;
 Coord=zeros(Nx+1,Ny+1,3);
