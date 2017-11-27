@@ -1,6 +1,6 @@
 %Function that computs the geometric points, the position of vortex rings,
     %the control points and the normal vector for a semi-wing
-function [Coord,Vortex,ControlP,DragP,Normal] = geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist)
+function [Coord,Vortex,ControlP,DragP,Normal] = geometry (cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist,x_offset,z_offset)
 %Coord: Matrix array with the x,y and z of the coordinates of the points of each element.
 %Vortex: Linear array of the diferent vortex rings. Row 1, 2, 3 and 4 are points 1, 2, 3 and 4 of the vortex ring,
     %and row 5 is 1 if the vortex has a horseshoe vortex attached to it, or 0 if not.
@@ -19,6 +19,8 @@ function [Coord,Vortex,ControlP,DragP,Normal] = geometry (cr,ct,b,Nx,Ny,m,p,swee
 %sweep: Sweep angle (measured at the line 1/4 of the chord).
 %dihedral: Dihedral angle.
 %twist: Twist angle at the tip.
+%x_offset: x offset.
+%z_offset: z offset.
 
 %Corrections needed for a good output for the left semi-wing
 if b<0
@@ -84,16 +86,23 @@ for j=1:Ny
 end
 
 %Twist for geomety and vortex points
+x1=x(1,:);
 for i=1:Nx+1
     for j=1:Ny+1
         twisti=twist*y(i,j)/(b/2); %Twist angle at the current wing section
-        xtwist=0.25*cr+(x(i,j)-0.25*cr)*cosd(twisti)+z(i,j)*sind(twisti); %New x coordinate with twist
-        ztwist=z(i,j)*cosd(twisti)-(x(i,j)-0.25*cr)*sind(twisti); %New z coordinate with twist
-        x(i,j)=xtwist;
+        c=cr-(cr-ct)*y(1,j)/(b/2);
+        c14=0.25*c;
+        x0=x(i,j)-(x1(j)+c14);
+        z0=z(i,j);
+        xtwist=x0*cosd(twisti)+z0*sind(twisti); %New x coordinate with twist
+        ztwist=z0*cosd(twisti)-x0*sind(twisti); %New z coordinate with twist
+        x(i,j)=xtwist+(x1(j)+c14);
         z(i,j)=ztwist;
-        xtwist=0.25*cr+(xp(i,j)-0.25*cr)*cosd(twisti)+zp(i,j)*sind(twisti); %New xp coordinate with twist
-        ztwist=zp(i,j)*cosd(twisti)-(xp(i,j)-0.25*cr)*sind(twisti); %New zp coordinate with twist
-        xp(i,j)=xtwist;
+        x0=xp(i,j)-(x1(j)+c14);
+        z0=zp(i,j);
+        xtwist=x0*cosd(twisti)+z0*sind(twisti); %New x coordinate with twist
+        ztwist=z0*cosd(twisti)-x0*sind(twisti); %New z coordinate with twist
+        xp(i,j)=xtwist+(x1(j)+c14);
         zp(i,j)=ztwist;
     end
 end
@@ -102,13 +111,19 @@ end
 for i=1:Nx
     for j=1:Ny
         twisti=twist*yc(i,j)/(b/2); %Twist angle at the current wing section
-        xtwist=0.25*cr+(xc(i,j)-0.25*cr)*cosd(twisti)+zc(i,j)*sind(twisti); %New xc coordinate with twist
-        ztwist=zc(i,j)*cosd(twisti)-(xc(i,j)-0.25*cr)*sind(twisti); %New zc coordinate with twist
-        xc(i,j)=xtwist;
+        c=cr-(cr-ct)*yc(1,j)/(b/2);
+        c14=0.25*c;
+        x0=xc(i,j)-(0.5*(x1(j)+x1(j+1))+c14);
+        z0=zc(i,j);
+        xtwist=x0*cosd(twisti)+z0*sind(twisti); %New x coordinate with twist
+        ztwist=z0*cosd(twisti)-x0*sind(twisti); %New z coordinate with twist
+        xc(i,j)=xtwist+(0.5*(x1(j)+x1(j+1))+c14);
         zc(i,j)=ztwist;
-        xtwist=0.25*cr+(xd(i,j)-0.25*cr)*cosd(twisti)+zd(i,j)*sind(twisti); %New xd coordinate with twist
-        ztwist=zd(i,j)*cosd(twisti)-(xd(i,j)-0.25*cr)*sind(twisti); %New zd coordinate with twist
-        xd(i,j)=xtwist;
+        x0=xd(i,j)-(0.5*(x1(j)+x1(j+1))+c14);
+        z0=zd(i,j);
+        xtwist=x0*cosd(twisti)+z0*sind(twisti); %New x coordinate with twist
+        ztwist=z0*cosd(twisti)-x0*sind(twisti); %New z coordinate with twist
+        xd(i,j)=xtwist+(0.5*(x1(j)+x1(j+1))+c14);
         zd(i,j)=ztwist;
     end
 end
@@ -140,6 +155,16 @@ for i=1:Nx
         n(i,j,:)=ni;
     end
 end
+
+%Offsets
+x=x+x_offset;
+xp=xp+x_offset;
+xc=xc+x_offset;
+xd=xd+x_offset;
+z=z+z_offset;
+zp=zp+z_offset;
+zc=zc+z_offset;
+zd=zd+z_offset;
 
 %Global coordinates matrix
 Coord(:,:,1)=x(:,:);
