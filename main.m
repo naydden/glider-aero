@@ -40,16 +40,16 @@ i_w_htp_0 = -4; %degrees
 % - Lifting line
 %% ONLY FOR ISOLATED WING
 %% Input
-cr=1; ct=1; b=20; Nx=5; Ny=12; sweep=0; dihedral=0; twist=0; alpha=0; 
+cr=1; ct=1; b=20; Nx=2; Ny=4; sweep=0; dihedral=0; twist=0; alpha=0; 
 x_offset=0; z_offset=0;
-ro = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
+rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 %% Preliminary
-[Coord,CoordP,CoordC,CoordD,n] = total_geometry (cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist,x_offset,z_offset);
-Gamma = circulation(Uinf,CoordP,CoordC,n);
-dL = delta_lift(Gamma,b,Nx,Ny,ro,Uinf);
-dDind = delta_drag(CoordP,CoordD,Gamma,b,Nx,Ny,ro,Uinf);
-L = lift(dL,Nx,Ny);
-% M = moment(dL,Nx,Ny,CoordP(:,:,1));
+[Coord,Vortex,ControlP,DragP,Normal] = total_geometry (cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist,x_offset,z_offset);
+Gamma = circulation(Uinf,Vortex,ControlP,Normal);
+dL = delta_lift(Vortex,Gamma,rho,Uinf);
+dDind = delta_drag(Vortex,DragP,Gamma,b,Nx,Ny,rho,Uinf);
+L = lift(dL,0);
+% M = moment(dL,Nx,Ny,Vortex(:,:,1));
 Dind = drag(dDind,Nx,Ny);
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
 
@@ -70,7 +70,7 @@ axis equal;
 %% Part 3: Assumption -> Ground Effect. Plot CL and CD for alpha 6deg, against AR 0.075Ao to 1.25Ao
 % Ao is the nominal aspect ratio
 
-Nx=10; Ny=50;
+Nx=2; Ny=4;
 
 %Wing
 cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; x_offset_W=0; z_offset_W=1;
@@ -86,6 +86,11 @@ incidence=6;
 
 %Ground-effect assembly
 [Coord,Vortex,ControlP,DragP,Normal] = assembly(Coord,Vortex,ControlP,DragP,Normal,Coord_Mirr,Vortex_Mirr,ControlP_Mirr,DragP_Mirr,Normal_Mirr);
+
+alpha=0; rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
+Gamma = circulation(Uinf,Vortex,ControlP,Normal);
+dL = delta_lift(Vortex,Gamma,rho,Uinf);
+L = lift(dL,1);
 
 figure(2);
 surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
