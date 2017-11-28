@@ -1,0 +1,72 @@
+function [CoordR,VortexR,ControlPR,DragPR,NormalR] = rotation(Coord,Vortex,ControlP,DragP,Normal,incidence,lateral,cr,x_offset,z_offset)
+
+CoordR=Coord;
+VortexR=Vortex;
+ControlPR=ControlP;
+DragPR=DragP;
+NormalR=Normal;
+
+%Set the origin at x=cr/4, z=0
+CoordR(:,:,1)=Coord(:,:,1)-(x_offset+0.25*cr);
+Vortex(1:4,:,1)=Vortex(1:4,:,1)-(x_offset+0.25*cr);
+ControlPR(:,1)=ControlP(:,1)-(x_offset+0.25*cr);
+DragPR(:,1)=DragP(:,1)-(x_offset+0.25*cr);
+
+Coord(:,:,3)=Coord(:,:,3)-z_offset;
+Vortex(1:4,:,3)=Vortex(1:4,:,3)-z_offset;
+ControlP(:,3)=ControlP(:,3)-z_offset;
+DragP(:,3)=DragP(:,3)-z_offset;
+
+%Incidence rotation
+for i=1:size(Coord,1)
+    for j=1:size(Coord,2)
+        CoordR(i,j,1)=Coord(i,j,1)*cosd(incidence)+Coord(i,j,3)*sind(incidence);
+        CoordR(i,j,3)=Coord(i,j,3)*cosd(incidence)-Coord(i,j,1)*sind(incidence);
+    end
+end
+
+for i=1:size(ControlP,1)
+    VortexR(1:4,i,1)=Vortex(1:4,i,1)*cosd(incidence)+Vortex(1:4,i,3)*sind(incidence);
+    VortexR(1:4,i,3)=Vortex(1:4,i,3)*cosd(incidence)-Vortex(1:4,i,1)*sind(incidence);
+    ControlPR(i,1)=ControlP(i,1)*cosd(incidence)+ControlP(i,3)*sind(incidence);
+    ControlPR(i,3)=ControlP(i,3)*cosd(incidence)-ControlP(i,1)*sind(incidence);
+    DragPR(i,1)=DragP(i,1)*cosd(incidence)+DragP(i,3)*sind(incidence);
+    DragPR(i,3)=DragP(i,3)*cosd(incidence)-DragP(i,1)*sind(incidence);
+    NormalR(i,1)=Normal(i,1)*cosd(incidence)+Normal(i,3)*sind(incidence);
+    NormalR(i,3)=Normal(i,3)*cosd(incidence)-Normal(i,1)*sind(incidence);
+end
+
+Coord
+
+%Lateral rotation
+for i=1:size(Coord,1)
+    for j=1:size(Coord,2)
+        CoordR2(i,j,2)=CoordR1(i,j,2)*cosd(lateral)-CoordR1(i,j,3)*sind(lateral);
+        CoordR2(i,j,3)=CoordR1(i,j,3)*cosd(lateral)+CoordR1(i,j,2)*sind(lateral);
+    end
+end
+
+for i=1:size(ControlP,1)
+    VortexR2(1:4,i,2)=VortexR1(1:4,i,2)*cosd(lateral)+VortexR1(1:4,i,3)*sind(lateral);
+    VortexR2(1:4,i,3)=VortexR1(1:4,i,3)*cosd(lateral)-VortexR1(1:4,i,2)*sind(lateral);
+    ControlPR2(i,2)=ControlPR1(i,2)*cosd(lateral)+ControlPR1(i,3)*sind(lateral);
+    ControlPR2(i,3)=ControlPR1(i,3)*cosd(lateral)-ControlPR1(i,2)*sind(lateral);
+    DragPR2(i,2)=DragPR1(i,2)*cosd(lateral)+DragPR1(i,3)*sind(lateral);
+    DragPR2(i,3)=DragPR1(i,3)*cosd(lateral)-DragPR1(i,2)*sind(lateral);
+    NormalR2(i,2)=NormalR1(i,2)*cosd(lateral)+NormalR1(i,3)*sind(lateral);
+    NormalR2(i,3)=NormalR1(i,3)*cosd(lateral)-NormalR1(i,2)*sind(lateral);
+end
+
+%Repositio the wing at original coordinates
+CoordR(:,:,1)=CoordR2(:,:,1)+(x_offset+0.25*cr);
+VortexR(1:4,:,1)=VortexR2(1:4,:,1)+(x_offset+0.25*cr);
+ControlPR(:,1)=ControlPR2(:,1)+(x_offset+0.25*cr);
+DragPR(:,1)=DragPR2(:,1)+(x_offset+0.25*cr);
+
+CoordR(:,:,3)=CoordR2(:,:,3)+z_offset;
+VortexR(1:4,:,3)=VortexR2(1:4,:,3)+z_offset;
+ControlPR(:,3)=ControlPR2(:,3)+z_offset;
+DragPR(:,3)=DragPR2(:,3)+z_offset;
+
+NormalR=NormalR2;
+end
