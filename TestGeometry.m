@@ -23,7 +23,7 @@ Vortex=ensamblaje(VortexW,VortexT);
 ControlP=ensamblaje(ControlPW,ControlPT);
 DragP=ensamblaje(DragPW,DragPT);
 Normal=ensamblaje(NormalW,NormalT);
-Coord = rotation(Coord,alpha,cr,x_offset,z_offset);
+[Coord,Vortex,ControlP,DragP,Normal] = rotation(Coord,Vortex,ControlP,DragP,Normal,alpha,cr,x_offset,z_offset);
 [Coord_Mirr,Vortex_Mirr,ControlP_Mirr,DragP_Mirr,Normal_Mirr] = mirror (Coord,Vortex,ControlP,DragP,Normal);
 
 figure(1);
