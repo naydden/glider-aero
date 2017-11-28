@@ -6,6 +6,10 @@
 %   - Boyan Naydenov
 % Subject: Aerodynamics, Flight and Orbital Mechanics.
 % Date: December 5th, 2017
+%%
+clear
+clc
+
 %% Data
 % St = horizontal tail (HTP) area
 % Sv = vertical tail (VTP) area
@@ -43,10 +47,10 @@ ro = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 [Coord,CoordP,CoordC,CoordD,n] = total_geometry (cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist,x_offset,z_offset);
 Gamma = circulation(Uinf,CoordP,CoordC,n);
 dL = delta_lift(Gamma,b,Nx,Ny,ro,Uinf);
-% dDind = delta_drag(CoordP,CoordD,Gamma,b,Nx,Ny,ro,Uinf);
+dDind = delta_drag(CoordP,CoordD,Gamma,b,Nx,Ny,ro,Uinf);
 L = lift(dL,Nx,Ny);
 % M = moment(dL,Nx,Ny,CoordP(:,:,1));
-% Dind = drag(dDind,Nx,Ny);
+Dind = drag(dDind,Nx,Ny);
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
 
 Nx=10; Ny=50;
