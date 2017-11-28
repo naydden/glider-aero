@@ -18,12 +18,11 @@ alpha=20;
 
 [CoordW,VortexW,ControlPW,DragPW,NormalW] = wing_assembly (cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist,x_offset,z_offset);
 [CoordT,VortexT,ControlPT,DragPT,NormalT] = wing_assembly (2,0,0.5*b,Nx,Ny,0,0,50,10,0,3,z_offset);
-Coord=ensamblaje(CoordW,CoordT);
-Vortex=ensamblaje(VortexW,VortexT);
-ControlP=ensamblaje(ControlPW,ControlPT);
-DragP=ensamblaje(DragPW,DragPT);
-Normal=ensamblaje(NormalW,NormalT);
+
+[Coord,Vortex,ControlP,DragP,Normal] = assembly(CoordW,VortexW,ControlPW,DragPW,NormalW,CoordT,VortexT,ControlPT,DragPT,NormalT);
+
 [Coord,Vortex,ControlP,DragP,Normal] = rotation(Coord,Vortex,ControlP,DragP,Normal,alpha,cr,x_offset,z_offset);
+
 [Coord_Mirr,Vortex_Mirr,ControlP_Mirr,DragP_Mirr,Normal_Mirr] = mirror (Coord,Vortex,ControlP,DragP,Normal);
 
 figure(1);
