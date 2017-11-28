@@ -5,10 +5,10 @@
 function w = w_coef(Nx,Ny,vortice_mat,control,Uinf,Gamma)
 
 N = Nx*Ny;
-w = zeros(N,N);
+w = zeros(N,1);
 J = [0,1,0];
 
-for i=1:N       
+for i=1:N      % Moving along the wing drag control points
     % Coordinates of each control point
     coord_d = [control(i,1) control(i,2) control(i,3)];
 
@@ -24,7 +24,7 @@ for i=1:N
         % Compute the w coeficient
     nom = dot(cross(Uinf,Vind),J);
     denom = norm(Uinf);
-    w(:,i) = nom/denom;
+    w(i) = nom/denom;
     
 end
 
