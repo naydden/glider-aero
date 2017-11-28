@@ -48,9 +48,8 @@ rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 dL = delta_lift(Vortex,Gamma,rho,Uinf);
 dDind = delta_drag(Vortex,DragP,Gamma,b,Nx,Ny,rho,Uinf);
-ground=0;
-L = lift(dL,ground);
-M = moment(dL,Vortex,ground);
+L = lift(dL,0);
+% M = moment(dL,Nx,Ny,Vortex(:,:,1));
 Dind = drag(dDind,Nx,Ny);
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
 
