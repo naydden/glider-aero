@@ -69,7 +69,7 @@ Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 disp('W')
 dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny,rho,Uinf); 
 L = lift(Nx,Ny,dLw,dLh,dLv)
-M = moment(dLw,dLh,dLv,Nx,Ny,ControlP(:,:,1),'ala')
+M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala')
 Dind = drag(dDind,Nx,Ny)
 
 figure(1);
@@ -106,7 +106,7 @@ Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf); 
 disp('W+TERRA')
 L = lift(Nx,Ny,dLw,dLh,dLv)
-M = moment(dLw,dLh,dLv,Nx,Ny,ControlP(:,:,1),'ala')
+M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala')
 Dind = drag(dDind,Nx,Ny)
 
 
@@ -155,7 +155,7 @@ Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
 dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny,rho,Uinf); 
 L = lift(Nx,Ny,dLw,dLh,dLv)
-M = moment(dLw,dLh,dLv,Nx,Ny,ControlP(:,:,1),'ala+tp+vtp')
+M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp')
 Dind = drag(dDind,Nx,Ny)
 
 
@@ -217,7 +217,7 @@ Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
 dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf); 
 L = lift(Nx,Ny,dLw,dLh,dLv)
-M = moment(dLw,dLh,dLv,Nx,Ny,ControlP(:,:,1),'ala+htp+vtp')
+M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp')
 Dind = drag(dDind,Nx,Ny)
 
 

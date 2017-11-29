@@ -28,7 +28,7 @@ function dDind = delta_drag(vortice_mat,control,Gamma,deltaY,Nx,Ny,rho,Uinf)
         end
     end
     
-    for Nw = 1:ceil(n/(2*Nx*Ny));      
+    for Nw = 1:ceil(n/(2*Nx*Ny))      
         for i=1:Nx
             for j=1:Ny*Nw
                 if i == 1
