@@ -6,14 +6,14 @@ function dDind = delta_drag(vortice_mat,control,Gamma,deltaY,Nx,Ny,rho,Uinf)
     w = w_coef(Nx,Ny,vortice_mat,control,Uinf,Gamma);
   
     n = length(Gamma);
+    if n>5 n=n/2; end
     w_new = zeros(Nx,2*Ny);
     Gamma_new = zeros(Nx,2*Ny);
     dDind = zeros(Nx,Ny*n);  
     
     for Nw = 1:ceil(n/2);
         for i = 1:Nx
-            
-            if Nw == 3 | Nw == 5  %Cas de l'estabilitzador vertical
+            if Nw == 3  %Cas de l'estabilitzador vertical
                 for j = 1:Ny
                     w_new(i,j) = w((i-1)*2*Ny + j + 4*Ny*(Nw-1));
                     Gamma_new(i,j) = Gamma((i-1)*2*Ny + j + 4*Ny*(Nw-1));
@@ -27,7 +27,7 @@ function dDind = delta_drag(vortice_mat,control,Gamma,deltaY,Nx,Ny,rho,Uinf)
         end
     end
     
-    for Nw = Nw = 1:ceil(n/2);      
+    for Nw = 1:ceil(n/2);      
         for i=1:Nx
             for j=1:Ny*n
                 if i == 1
