@@ -1,7 +1,7 @@
 function [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,cas)
     dLw = zeros(Nx,2*Ny);
     dLh = zeros(Nx,2*Ny);
-    dLv = zeros(Nx,2*Ny);
+    dLv = zeros(Nx,Ny);
     switch cas
         case 'ala'
             Gamma_w = rearrange_wing(Nx,Ny,Gamma,'wing');
