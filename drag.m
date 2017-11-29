@@ -5,7 +5,7 @@
 function Dind = drag(dDind,Nx,Ny)
 
     Dind = 0;
-    N = lenght(dDind) %Indicates the number of columns of the matrix
+    N = length(dDind); %Indicates the number of columns of the matrix
     
     for i=1:Nx
         for j=1:N
