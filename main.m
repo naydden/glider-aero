@@ -60,18 +60,29 @@ deltaY = b/(2*Ny);
 % toc
 % Nx=10; Ny=50;
 % 
+
+% GEOEMTRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %Wing
 Nx=2; Ny=3;
-cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; x_offset_W=-0.25*cr_W; z_offset_W=0;
-m_W=0.02; p_W=0.4; 
-[Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
+cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; 
+x_offset_W=-0.25*cr_W; z_offset_W=0; m_W=0.02; p_W=0.4; 
+
+[Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,...
+    Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
+
+% COMPUTATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,'ala');
-disp('W')
 dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny,rho,Uinf); 
+
+disp('W')
 L = lift(dLw,dLh,dLv)
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala')
 Dind = drag(dDind,Nx,Ny)
+
+% PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 figure(1);
 surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
@@ -80,16 +91,25 @@ axis equal;
 %% Part 2: PLotting wing's aerodynamic polar for alpha 0 to 10 deg.
 
 
-%% Part 3: Assumption -> Ground Effect. Plot CL and CD for alpha 6deg, against AR 0.075Ao to 1.25Ao
+%% Part 3: Assumption -> Ground Effect. 
+% Plot CL and CD for alpha 6deg, against AR 0.075Ao to 1.25Ao
 % Ao is the nominal aspect ratio
+
+
+% GEOEMTRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Nx=2; Ny=3;
 
 %Wing
-cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; x_offset_W=-0.25*cr_W; z_offset_W=1;
-m_W=0.02; p_W=0.4; 
-[Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
+cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; 
+x_offset_W=-0.25*cr_W; z_offset_W=1; m_W=0.02; p_W=0.4; 
+
+[Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,Nx,...
+    Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
+
+% DeltaY Computation
 deltaYsim = [deltaY deltaY];
+
 %Plane incidence
 incidence=6;
 [Coord,Vortex,ControlP,DragP,Normal] = rotation(Coord,Vortex,ControlP,DragP,Normal,incidence,0,cr_W,x_offset_W,z_offset_W);
@@ -100,16 +120,23 @@ incidence=6;
 %Ground-effect assembly
 [Coord,Vortex,ControlP,DragP,Normal] = assembly(Coord,Vortex,ControlP,DragP,Normal,Coord_Mirr,Vortex_Mirr,ControlP_Mirr,DragP_Mirr,Normal_Mirr);
 
+% DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 alpha=0; rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 ground=1;
+
+% COMPUTATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala');
 dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf); 
+
 disp('W+TERRA')
 L = lift(dLw,dLh,dLv)
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala')
 Dind = drag(dDind,Nx,Ny)
 
+% PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 figure(2);
 surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
@@ -119,6 +146,9 @@ axis equal;
 
 
 %% Part 4: CL and CD and Xcm for Sum(M)=0 when alpha = 6deg
+
+% GEOEMTRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Nx=2; Ny=3;
 
 %Wing
@@ -150,15 +180,23 @@ incidence_T=-4;
 %Wing-body assembly
 [Coord,Vortex,ControlP,DragP,Normal] = assembly(CoordW,VortexW,ControlPW,DragPW,NormalW,CoordT,VortexT,ControlPT,DragPT,NormalT);
 
-disp('W+VTP+HTP')
+
+% DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 alpha=0; rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
+
+% COMPUTATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
 dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny,rho,Uinf); 
+
+disp('W+VTP+HTP')
 L = lift(dLw,dLh,dLv)
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp')
 Dind = drag(dDind,Nx,Ny)
 
+% PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 figure(3);
 surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
@@ -169,6 +207,8 @@ surf(Coord(:,4*(Ny+1)+1:5*(Ny+1),1),Coord(:,4*(Ny+1)+1:5*(Ny+1),2),Coord(:,4*(Ny
 axis equal;
 
 %% Part 5: Assumption -> ground effect. CL, CD and CM_cm
+
+% GEOEMTRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Nx=2; Ny=3;
 
@@ -212,15 +252,22 @@ incidence=6;
 %Ground-effect assembly
 [Coord,Vortex,ControlP,DragP,Normal] = assembly(Coord,Vortex,ControlP,DragP,Normal,Coord_Mirr,Vortex_Mirr,ControlP_Mirr,DragP_Mirr,Normal_Mirr);
 
-disp('W+VTP+HTP+TERRA')
+% DATA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 alpha=0; rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
+
+% COMPUTATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
 dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf); 
+
+disp('W+VTP+HTP+TERRA')
 L = lift(dLw,dLh,dLv)
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp')
 Dind = drag(dDind,Nx,Ny)
 
+% PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 figure(4);
 surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
