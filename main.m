@@ -40,7 +40,7 @@ i_w_htp_0 = -4; %degrees
 % - Lifting line
 %% ONLY FOR ISOLATED WING
 % Input
-cr=1; ct=1; b=20; Nx=4; Ny=8; sweep=0; dihedral=0; twist=0; alpha=-1.5; 
+cr=1; ct=1; b=20; Nx=4; Ny=10; sweep=0; dihedral=0; twist=0; alpha=-1.5; 
 x_offset=0; z_offset=0;
 rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 deltaY = b/(2*Ny);
@@ -67,8 +67,10 @@ m_W=0.02; p_W=0.4;
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,'ala');
 disp('W')
+dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny,rho,Uinf); 
 L = lift(Nx,Ny,dLw,dLh,dLv)
 M = moment(dLw,dLh,dLv,Nx,Ny,ControlP(:,:,1),'ala')
+Dind = drag(dDind,Nx,Ny)
 
 figure(1);
 surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
@@ -101,9 +103,12 @@ alpha=0; rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 ground=1;
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,'ala');
+dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf); 
 disp('W+TERRA')
 L = lift(Nx,Ny,dLw,dLh,dLv)
 M = moment(dLw,dLh,dLv,Nx,Ny,ControlP(:,:,1),'ala')
+Dind = drag(dDind,Nx,Ny)
+
 
 figure(2);
 surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
@@ -148,8 +153,10 @@ disp('W+VTP+HTP')
 alpha=0; rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,'ala+htp+vtp');
+dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny,rho,Uinf); 
 L = lift(Nx,Ny,dLw,dLh,dLv)
 M = moment(dLw,dLh,dLv,Nx,Ny,ControlP(:,:,1),'ala+tp+vtp')
+Dind = drag(dDind,Nx,Ny)
 
 
 figure(3);
@@ -180,6 +187,10 @@ m_V=0; p_V=0;
 [CoordV,VortexV,ControlPV,DragPV,NormalV] = geometry (cr_V,ct_V,b_V,Nx,Ny,m_V,p_V,sweep_V,dihedral_V,twist_V,x_offset_V,z_offset_V);
 [CoordV,VortexV,ControlPV,DragPV,NormalV] = rotation(CoordV,VortexV,ControlPV,DragPV,NormalV,0,90,cr_V,x_offset_V,z_offset_V);
 
+% DeltaY Computation
+deltaYsim = [deltaY deltaY];
+
+
 %Tail assembly
 [CoordT,VortexT,ControlPT,DragPT,NormalT] = assembly(CoordH,VortexH,ControlPH,DragPH,NormalH,CoordV,VortexV,ControlPV,DragPV,NormalV);
 
@@ -204,8 +215,10 @@ disp('W+VTP+HTP+TERRA')
 alpha=0; rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,'ala+htp+vtp');
+dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf); 
 L = lift(Nx,Ny,dLw,dLh,dLv)
 M = moment(dLw,dLh,dLv,Nx,Ny,ControlP(:,:,1),'ala+htp+vtp')
+Dind = drag(dDind,Nx,Ny)
 
 
 figure(4);
