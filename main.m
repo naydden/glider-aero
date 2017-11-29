@@ -46,8 +46,9 @@ rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 % %% Preliminary
 % [Coord,Vortex,ControlP,DragP,Normal] = total_geometry (cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist,x_offset,z_offset);
 % Gamma = circulation(Uinf,Vortex,ControlP,Normal);
+% deltaY = b/(2*Ny);
 % dL = delta_lift(Vortex,Gamma,rho,Uinf);
-% dDind = delta_drag(Vortex,DragP,Gamma,b,Nx,Ny,rho,Uinf);
+% dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny,rho,Uinf);
 % ground=0;
 % L = lift(dL,ground);
 % M = moment(dL,Vortex,ground);
@@ -87,7 +88,7 @@ Nx=1; Ny=4;
 cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; x_offset_W=-0.25*cr_W; z_offset_W=1;
 m_W=0.02; p_W=0.4; 
 [Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
-
+deltaYsim = [deltaY deltaY];
 %Plane incidence
 incidence=6;
 [Coord,Vortex,ControlP,DragP,Normal] = rotation(Coord,Vortex,ControlP,DragP,Normal,incidence,0,cr_W,x_offset_W,z_offset_W);
@@ -132,6 +133,9 @@ m_V=0; p_V=0;
 [CoordV,VortexV,ControlPV,DragPV,NormalV] = geometry (cr_V,ct_V,b_V,Nx,Ny,m_V,p_V,sweep_V,dihedral_V,twist_V,x_offset_V,z_offset_V);
 [CoordV,VortexV,ControlPV,DragPV,NormalV] = rotation(CoordV,VortexV,ControlPV,DragPV,NormalV,0,90,cr_V,x_offset_V,z_offset_V);
 
+% DeltaY Computation
+deltaY = [b_W/(2*Ny) b_H/(2*Ny) b_V/Ny];
+
 %Tail assembly
 [CoordT,VortexT,ControlPT,DragPT,NormalT] = assembly(CoordH,VortexH,ControlPH,DragPH,NormalH,CoordV,VortexV,ControlPV,DragPV,NormalV);
 
@@ -169,6 +173,9 @@ cr_V=1*cr_H; ct_V=1*cr_V; b_V=2/3*b_H; sweep_V=0; dihedral_V=0; twist_V=0; x_off
 m_V=0; p_V=0; 
 [CoordV,VortexV,ControlPV,DragPV,NormalV] = geometry (cr_V,ct_V,b_V,Nx,Ny,m_V,p_V,sweep_V,dihedral_V,twist_V,x_offset_V,z_offset_V);
 [CoordV,VortexV,ControlPV,DragPV,NormalV] = rotation(CoordV,VortexV,ControlPV,DragPV,NormalV,0,90,cr_V,x_offset_V,z_offset_V);
+
+% DeltaY Computation
+deltaYsim = [deltaY deltaY];
 
 %Tail assembly
 [CoordT,VortexT,ControlPT,DragPT,NormalT] = assembly(CoordH,VortexH,ControlPH,DragPH,NormalH,CoordV,VortexV,ControlPV,DragPV,NormalV);
