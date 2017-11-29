@@ -102,7 +102,7 @@ incidence=6;
 alpha=0; rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 ground=1;
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
-[dLw,dLh,dLv] = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,'ala');
+[dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala');
 dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf); 
 disp('W+TERRA')
 L = lift(Nx,Ny,dLw,dLh,dLv)
@@ -152,7 +152,7 @@ incidence_T=-4;
 disp('W+VTP+HTP')
 alpha=0; rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
-[dLw,dLh,dLv] = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,'ala+htp+vtp');
+[dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
 dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny,rho,Uinf); 
 L = lift(Nx,Ny,dLw,dLh,dLv)
 M = moment(dLw,dLh,dLv,Nx,Ny,ControlP(:,:,1),'ala+tp+vtp')
@@ -214,7 +214,7 @@ incidence=6;
 disp('W+VTP+HTP+TERRA')
 alpha=0; rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
-[dLw,dLh,dLv] = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,'ala+htp+vtp');
+[dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
 dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf); 
 L = lift(Nx,Ny,dLw,dLh,dLv)
 M = moment(dLw,dLh,dLv,Nx,Ny,ControlP(:,:,1),'ala+htp+vtp')
