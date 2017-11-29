@@ -1,9 +1,11 @@
 % Function that returns the lift of the wing given the lift of each
 % element.
-function L = lift(dL,ground)
-if ground==0
-    L=sum(dL);
-else
-    L=sum(dL(1:0.5*size(dL)));
-end
-end
+function L = lift(Nx,Ny,dLw,dLh,dLv)
+    L = 0;
+    for j=1:Ny
+        for i=2:Nx
+             L = L + dLw(i,j)+dLh(i,j)+dLv(i,j);
+        end
+    end
+end    
+    

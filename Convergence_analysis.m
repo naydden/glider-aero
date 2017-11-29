@@ -22,26 +22,26 @@ Uinf = [1*cosd(alpha),0,1*sind(alpha)];
 
 %% Ny
 
-% Nx = 10;
-% Ny = 10:10:50;
-% CL = zeros(1,size(Ny,2));
-% 
-% for i = 1:size(Ny,2)
-%     [CL(i), ~] = Coeff(cr,ct,b,Nx,Ny(i),m_w,p_w,sweep,dihedral,twist,x_offset,z_offset,Uinf,rho);
-%     display(Ny(i));
-% end
-% 
-% figure(1);
-% plot(Ny,CL);
-% xlabel('N_{y}');
-% ylabel('c_{L}');
-% title('N_{x} = 10');
-% grid on;
+Nx = 10;
+Ny = 10:10:20;
+CL = zeros(1,size(Ny,2));
+
+for i = 1:size(Ny,2)
+    [CL(i), ~] = Coeff(cr,ct,b,Nx,Ny(i),m_w,p_w,sweep,dihedral,twist,x_offset,z_offset,Uinf,rho);
+    display(Ny(i));
+end
+
+figure(1);
+plot(Ny,CL);
+xlabel('N_{y}');
+ylabel('c_{L}');
+title('N_{x} = 10');
+grid on;
 
 %% Nx
 
-Numberx = 1:2:14;
-Numbery = 2;
+Numberx = 2:2:10;
+Numbery = 3;
 CL = zeros(1,size(Numberx,2));
 
 for i = 1:size(Numberx,2)
