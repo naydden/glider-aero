@@ -95,6 +95,7 @@ disp('W')
 L = lift(dLw,dLh,dLv)
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala')
 Dind = drag(dDind,Nx,Ny)
+[CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
 
 % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
