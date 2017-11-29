@@ -3,7 +3,7 @@ function Gamma = rearrange_wing(Nx,Ny,Gamma,cas)
         case 'wing'
             Gamma_e = zeros(Nx,Ny);
             Gamma_d = zeros(Nx,Ny);  
-            k = 0;
+            k = 1;
             % semiala esquerra            
             for i=1:Nx
                 for j=1:Ny
@@ -13,7 +13,7 @@ function Gamma = rearrange_wing(Nx,Ny,Gamma,cas)
                 end
             end
             % semiala dreta
-            Ny_aux = k+Ny;
+            Ny_aux = k+Ny-1;
             for i=1:Nx
                 l = 0;
                 for j=k:Ny_aux
@@ -27,30 +27,34 @@ function Gamma = rearrange_wing(Nx,Ny,Gamma,cas)
             Gamma_new = zeros(Nx,Ny);
             start = Nx*Ny*4;
             for i=1:Nx
+                l = 0;
                 for j=(start+1):(start+Ny)
+                    l = l + 1;
                     % change from vector to matrix
-                    Gamma_new(i,j) = Gamma((i-1)*Ny+j);
+                    Gamma_new(i,l) = Gamma((i-1)*Ny+j);
                 end
             end
             Gamma = Gamma_new;
         case 'htp'
             Gamma_e = zeros(Nx,Ny);
             Gamma_d = zeros(Nx,Ny);
-            start = Nx*2*Ny+1;
-            k = 0;
+            start = Nx*2*Ny;
+            k = 1;
             % semiala esquerra            
             for i=1:Nx
-                for j=start:(start+Ny-1)
+                l = 0;
+                for j=(start+1):(start+Ny)
+                    l = l + 1;
                     % change from vector to matrix
                     k = k + 1;
-                    Gamma_e(i,j) = Gamma((i-1)*Ny+j);
+                    Gamma_e(i,l) = Gamma((i-1)*Ny+j);
                 end
             end
             % semiala dreta
-            start = start + k;
+            start = start + k -1;
             for i=1:Nx
                 l = 0;
-                for j=start:(start+Ny-1)
+                for j=(start+1):(start+Ny)
                     l = l + 1;
                     % change from vector to matrix
                     Gamma_d(i,l) = Gamma((i-1)*Ny+j);
