@@ -91,11 +91,11 @@ Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,'ala');
 dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny,rho,Uinf); 
 
-disp('W')
-L = lift(dLw,dLh,dLv)
-M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala')
-Dind = drag(dDind,Nx,Ny)
+L = lift(dLw,dLh,dLv);
+M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala');
+Dind = drag(dDind,Nx,Ny);
 [CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
+fprintf('Wing case: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n \n',L,Dind,M,CL,CD,Cm)
 
 % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -146,11 +146,10 @@ Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala');
 dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf); 
 
-disp('W+TERRA')
-L = lift(dLw,dLh,dLv)
-M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala')
-Dind = drag(dDind,Nx,Ny)
-
+L = lift(dLw,dLh,dLv);
+M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala');
+Dind = drag(dDind,Nx,Ny);
+fprintf('Wing case + ground: L= %f D= %f M= %f\n',L,Dind,M)
 % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 figure(2);
@@ -192,7 +191,7 @@ deltaY = [b_W/(2*Ny) b_H/(2*Ny) b_V/Ny];
 [CoordT,VortexT,ControlPT,DragPT,NormalT] = assembly(CoordH,VortexH,ControlPH,DragPH,NormalH,CoordV,VortexV,ControlPV,DragPV,NormalV);
 
 %Tail incidence
-incidence_T=-4;
+incidence_T=0;
 [CoordT,VortexT,ControlPT,DragPT,NormalT] = rotation(CoordT,VortexT,ControlPT,DragPT,NormalT,incidence_T,0,cr_H,x_offset_H,z_offset_H);
 
 %Wing-body assembly
@@ -209,10 +208,10 @@ Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
 dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny,rho,Uinf); 
 
-disp('W+VTP+HTP')
-L = lift(dLw,dLh,dLv)
-M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp')
-Dind = drag(dDind,Nx,Ny)
+L = lift(dLw,dLh,dLv);
+M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp');
+Dind = drag(dDind,Nx,Ny);
+fprintf('Wing+VTP+HTP case: L= %f D= %f M= %f\n',L,Dind,M)
 
 % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -280,11 +279,10 @@ Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
 dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf); 
 
-disp('W+VTP+HTP+TERRA')
-L = lift(dLw,dLh,dLv)
-M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp')
-Dind = drag(dDind,Nx,Ny)
-
+L = lift(dLw,dLh,dLv);
+M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp');
+Dind = drag(dDind,Nx,Ny);
+fprintf('Wing+VTP+HTP+Ground case: L= %f D= %f M= %f\n',L,Dind,M)
 % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 figure(4);
