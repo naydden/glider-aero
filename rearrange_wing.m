@@ -25,9 +25,9 @@ function Gamma = rearrange_wing(Nx,Ny,Gamma,cas)
             Gamma = [Gamma_e Gamma_d];
         case 'vtp'
             Gamma_new = zeros(Nx,Ny);
-            start = Nx*Ny*4+1;
+            start = Nx*Ny*4;
             for i=1:Nx
-                for j=start:(start+Ny)
+                for j=(start+1):(start+Ny)
                     % change from vector to matrix
                     Gamma_new(i,j) = Gamma((i-1)*Ny+j);
                 end
@@ -40,7 +40,7 @@ function Gamma = rearrange_wing(Nx,Ny,Gamma,cas)
             k = 0;
             % semiala esquerra            
             for i=1:Nx
-                for j=start:(start+Ny)
+                for j=start:(start+Ny-1)
                     % change from vector to matrix
                     k = k + 1;
                     Gamma_e(i,j) = Gamma((i-1)*Ny+j);
@@ -50,7 +50,7 @@ function Gamma = rearrange_wing(Nx,Ny,Gamma,cas)
             start = start + k;
             for i=1:Nx
                 l = 0;
-                for j=start:(start+Ny)
+                for j=start:(start+Ny-1)
                     l = l + 1;
                     % change from vector to matrix
                     Gamma_d(i,l) = Gamma((i-1)*Ny+j);

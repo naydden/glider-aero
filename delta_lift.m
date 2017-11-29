@@ -1,4 +1,4 @@
-function L = lift(Gamma,b,Nx,Ny,rho,Uinf,cas)
+function [dLw,dLh,dLv] = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,cas)
     deltaY = b/(2*Ny);
     dLw = zeros(Nx,Ny);
     dLh = zeros(Nx,Ny);
@@ -48,4 +48,3 @@ function L = lift(Gamma,b,Nx,Ny,rho,Uinf,cas)
             end             
     end
 end
-    
