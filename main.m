@@ -53,17 +53,17 @@ rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 % M = moment(dL,Vortex,ground);
 % Dind = drag(dDind,Nx,Ny);
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
-tic
-twist_angle = 0:-1:-8;
-alpha_angle = zeros(1,size(twist_angle,2));
-for i = 1:size(twist_angle,2)
-    alpha_angle(i) = ZLangle(cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist_angle(i),x_offset,z_offset,rho);
-end
-figure(1);
-plot(twist_angle, alpha_angle);
-xlabel('Twist angle (º)')
-ylabel('\alpha_{ZL} (º)')
-toc
+% tic
+% twist_angle = 0:-1:-8;
+% alpha_angle = zeros(1,size(twist_angle,2));
+% for i = 1:size(twist_angle,2)
+%     alpha_angle(i) = ZLangle(cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist_angle(i),x_offset,z_offset,rho);
+% end
+% figure(1);
+% plot(twist_angle, alpha_angle);
+% xlabel('Twist angle (ï¿½)')
+% ylabel('\alpha_{ZL} (ï¿½)')
+% toc
 % Nx=10; Ny=50;
 % 
 % %Wing
@@ -81,7 +81,7 @@ toc
 %% Part 3: Assumption -> Ground Effect. Plot CL and CD for alpha 6deg, against AR 0.075Ao to 1.25Ao
 % Ao is the nominal aspect ratio
 
-Nx=2; Ny=4;
+Nx=1; Ny=4;
 
 %Wing
 cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; x_offset_W=-0.25*cr_W; z_offset_W=1;
