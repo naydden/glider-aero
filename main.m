@@ -61,6 +61,7 @@ deltaY = b/(2*Ny);
 % Nx=10; Ny=50;
 % 
 %Wing
+Nx=2; Ny=3;
 cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; x_offset_W=-0.25*cr_W; z_offset_W=0;
 m_W=0.02; p_W=0.4; 
 [Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
