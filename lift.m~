@@ -49,11 +49,5 @@ function L = lift(Gamma,b,Nx,Ny,rho,Uinf,cas)
                 end
             end             
     end
-    L = 0;
-    for j=1:Ny
-        for i=2:Nx
-             L = L + dLw(i,j)+dLh(i,j)+dLv(i,j);
-        end
-    end
 end
     
