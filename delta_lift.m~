@@ -19,6 +19,11 @@ function dL = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,cas)
                     % change from vector to matrix
                     k = k + 1;
                     Gamma_e(i,j) = Gamma((i-1)*Ny+j);
+                    if i == 1
+                        dL(i,j) = rho*norm(Uinf)*Gamma_new(1,j)*deltaY;
+                    else
+                        dL(i,j) = rho*norm(Uinf)*(Gamma_new(i,j)-Gamma_new(i-1,j))*deltaY;
+                    end
                 end
             end
             % semiala esquerra
@@ -29,18 +34,13 @@ function dL = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,cas)
                     l = l + 1;
                     % change from vector to matrix
                     Gamma_d(i,l) = Gamma((i-1)*Ny+j);
-                end
-            end
-            Gamma = [Gamma_e Gamma_d];
-            for i=1:Nx
-                for j=1:Ny
                     if i == 1
-                        dL(i,j) = rho*norm(Uinf)*Gamma(1,j)*deltaY;
+                        dL(i,j) = rho*norm(Uinf)*Gamma_new(1,j)*deltaY;
                     else
-                        dL(i,j) = rho*norm(Uinf)*(Gamma(i,j)-Gamma(i-1,j))*deltaY;
+                        dL(i,j) = rho*norm(Uinf)*(Gamma_new(i,j)-Gamma_new(i-1,j))*deltaY;
                     end
                 end
-            end
+            end            
 %         case 'ala'
 %             Gamma_new = zeros(Nx,2*Ny);
 %             for i=1:Nx

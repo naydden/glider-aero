@@ -39,39 +39,49 @@ i_w_htp_0 = -4; %degrees
 % - Vortex lattice
 % - Lifting line
 %% ONLY FOR ISOLATED WING
-%% Input
-cr=1; ct=1; b=20; Nx=2; Ny=4; sweep=0; dihedral=0; twist=0; alpha=0; 
+% Input
+cr=1; ct=1; b=20; Nx=4; Ny=8; sweep=0; dihedral=0; twist=0; alpha=-1.5; 
 x_offset=0; z_offset=0;
 rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
-%% Preliminary
-[Coord,Vortex,ControlP,DragP,Normal] = total_geometry (cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist,x_offset,z_offset);
-Gamma = circulation(Uinf,Vortex,ControlP,Normal);
-dL = delta_lift(Vortex,Gamma,rho,Uinf);
-dDind = delta_drag(Vortex,DragP,Gamma,b,Nx,Ny,rho,Uinf);
-ground=0;
-L = lift(dL,ground);
-M = moment(dL,Vortex,ground);
-Dind = drag(dDind,Nx,Ny);
+% %% Preliminary
+% [Coord,Vortex,ControlP,DragP,Normal] = total_geometry (cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist,x_offset,z_offset);
+% Gamma = circulation(Uinf,Vortex,ControlP,Normal);
+% dL = delta_lift(Vortex,Gamma,rho,Uinf);
+% dDind = delta_drag(Vortex,DragP,Gamma,b,Nx,Ny,rho,Uinf);
+% ground=0;
+% L = lift(dL,ground);
+% M = moment(dL,Vortex,ground);
+% Dind = drag(dDind,Nx,Ny);
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
-
-Nx=10; Ny=50;
-
-%Wing
-cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; x_offset_W=-0.25*cr_W; z_offset_W=0;
-m_W=0.02; p_W=0.4; 
-[Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
-
-figure(1);
-surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
-axis equal;
-
+% tic
+% twist_angle = 0:-1:-8;
+% alpha_angle = zeros(1,size(twist_angle,2));
+% for i = 1:size(twist_angle,2)
+%     alpha_angle(i) = ZLangle(cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist_angle(i),x_offset,z_offset,rho);
+% end
+% figure(1);
+% plot(twist_angle, alpha_angle);
+% xlabel('Twist angle (�)')
+% ylabel('\alpha_{ZL} (�)')
+% toc
+% Nx=10; Ny=50;
+% 
+% %Wing
+% cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; x_offset_W=-0.25*cr_W; z_offset_W=0;
+% m_W=0.02; p_W=0.4; 
+% [Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
+% 
+% figure(1);
+% surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
+% axis equal;
+% 
 %% Part 2: PLotting wing's aerodynamic polar for alpha 0 to 10 deg.
 
 
 %% Part 3: Assumption -> Ground Effect. Plot CL and CD for alpha 6deg, against AR 0.075Ao to 1.25Ao
 % Ao is the nominal aspect ratio
 
-Nx=2; Ny=4;
+Nx=1; Ny=4;
 
 %Wing
 cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; x_offset_W=-0.25*cr_W; z_offset_W=1;

@@ -8,8 +8,15 @@ function [CL, CD] = Coeff(cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist,x_offset,z_offs
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 
 % Lift
-dL = delta_lift(Vortex,Gamma,rho,Uinf);
-L = lift(dL,0);
+% dL = delta_lift(Vortex,Gamma,rho,Uinf);
+% L = lift(dL,0);
+dL = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,'ala');
+L = 0;
+for j=1:Ny
+    for i=2:Nx
+         L = L + dL(i,j);
+    end
+end
 
 % Drag
 dDind = delta_drag(Vortex,DragP,Gamma,b,Nx,Ny,rho,Uinf);
