@@ -1,3 +1,4 @@
+
 %% Solving the aerodynamics of a conventional glider
 % Authors:
 %   - Silvia Gonzalez
@@ -6,46 +7,59 @@
 %   - Boyan Naydenov
 % Subject: Aerodynamics, Flight and Orbital Mechanics.
 % Date: December 5th, 2017
+
 %%
 clear
 clc
 
+
 %% Data
+
 % St = horizontal tail (HTP) area
 % Sv = vertical tail (VTP) area
 % S = wing area
 % lt = distance given in drawing
 % cm = mean aerodynamic chord of the wing
+
 St_S = 1/8;
 Sv_S = 2/3;
 lt_cm = 4;
+
 % Assumptions:
 % AR of wing and HTP is high enough (>6) -> lifting line can be assumed
 % Ct/Cr (tip to chord) ratio is left free.
+
 %% Wing:NACA 2412 airfoil
 m_w = 0.02;
 p_w = 0.4;
 i_w0 = 0; %the chord of the center section of the wing has zero incidence 
 % angle with respect to the rod.
+
 %% HTP NACA 0009
 % symmetric airfoil
 m_htp = 0;
 p_htp = 0;
 i_w_htp_0 = -4; %degrees
+
 %% VTP NACA 0009
 % symmetric airfoil
 
+
 %% Possible methods
-% - Vortex lattice
+% - Vortex lattice (SELECTED METHOD)
 % - Lifting line
+
 %% ONLY FOR ISOLATED WING
+
 % Input
 cr=1; ct=1; b=20; Nx=4; Ny=10; sweep=0; dihedral=0; twist=0; alpha=-1.5; 
 x_offset=0; z_offset=0;
 rho = 1.225; Uinf= [1*cosd(alpha),0,1*sind(alpha)];
 deltaY = b/(2*Ny);
-% %% Preliminary
+
+% Preliminary
 % [Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
+
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
 % tic
 % twist_angle = 0:-1:-8;
@@ -152,18 +166,21 @@ axis equal;
 Nx=2; Ny=3;
 
 %Wing
-cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; x_offset_W=-0.25*cr_W; z_offset_W=0;
-m_W=0.02; p_W=0.4; 
+cr_W=1; ct_W=1*cr_W; b_W=10; sweep_W=0; dihedral_W=0; twist_W=0; 
+x_offset_W=-0.25*cr_W; z_offset_W=0; m_W=0.02; p_W=0.4; 
+
 [CoordW,VortexW,ControlPW,DragPW,NormalW] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
 
 %Horizontal tail
-cr_H=0.5*cr_W; ct_H=1*cr_H; b_H=0.5*b_W; sweep_H=0; dihedral_H=0; twist_H=0; x_offset_H=4-0.25*cr_H; z_offset_H=z_offset_W;
-m_H=0; p_H=0; 
+cr_H=0.5*cr_W; ct_H=1*cr_H; b_H=0.5*b_W; sweep_H=0; dihedral_H=0; 
+twist_H=0; x_offset_H=4-0.25*cr_H; z_offset_H=z_offset_W;  m_H=0; p_H=0; 
+
 [CoordH,VortexH,ControlPH,DragPH,NormalH] = wing_assembly (cr_H,ct_H,b_H,Nx,Ny,m_H,p_H,sweep_H,dihedral_H,twist_H,x_offset_H,z_offset_H);
 
 %Vertical tail
-cr_V=1*cr_H; ct_V=1*cr_V; b_V=2/3*b_H; sweep_V=0; dihedral_V=0; twist_V=0; x_offset_V=x_offset_H; z_offset_V=z_offset_W;
-m_V=0; p_V=0; 
+cr_V=1*cr_H; ct_V=1*cr_V; b_V=2/3*b_H; sweep_V=0; dihedral_V=0; twist_V=0; 
+x_offset_V=x_offset_H; z_offset_V=z_offset_W; m_V=0; p_V=0; 
+
 [CoordV,VortexV,ControlPV,DragPV,NormalV] = geometry (cr_V,ct_V,b_V,Nx,Ny,m_V,p_V,sweep_V,dihedral_V,twist_V,x_offset_V,z_offset_V);
 [CoordV,VortexV,ControlPV,DragPV,NormalV] = rotation(CoordV,VortexV,ControlPV,DragPV,NormalV,0,90,cr_V,x_offset_V,z_offset_V);
 
