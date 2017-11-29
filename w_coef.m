@@ -4,7 +4,7 @@
 
 function w = w_coef(Nx,Ny,vortice_mat,control,Uinf,Gamma)
 
-N = length(vortice_mat);
+N = size(vortice_mat,2);
 w = zeros(N,1);
 J = [0,1,0];
 
