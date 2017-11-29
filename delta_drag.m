@@ -1,7 +1,7 @@
 
 % Function that computes the induced drag of each vortex element
 
-function dDind = delta_drag(vortice_mat,control,Gamma,b,Nx,Ny,rho,Uinf)
+function dDind = delta_drag(vortice_mat,control,Gamma,deltaY,Nx,Ny,rho,Uinf)
 
     w = w_coef(Nx,Ny,vortice_mat,control,Uinf,Gamma);
   
