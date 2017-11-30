@@ -190,7 +190,7 @@ deltaY = [b_W/(2*Ny) b_H/(2*Ny) b_V/Ny];
 
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
-[dDw,dDh,dDv] = delta_drag(Gamma,Vortex,DragP,deltaY,Nx,Ny,rho,Uinf,'ala');
+[dDw,dDh,dDv] = delta_drag(Gamma,Vortex,DragP,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
 
 
 L = lift(dLw,dLh,dLv);
@@ -265,7 +265,7 @@ incidence=3;
 
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
-[dDw,dDh,dDv] = delta_drag(Gamma,Vortex,DragP,deltaY,Nx,Ny,rho,Uinf,'ala');
+[dDw,dDh,dDv] = delta_drag(Gamma,Vortex,DragP,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
 
 L = lift(dLw,dLh,dLv);
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp');
