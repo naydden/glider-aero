@@ -16,7 +16,7 @@ for i=1:N
         AB=[x_b-x_c y_b-y_c z_b-z_c];
         AP=[x_b-x y_b-y z_b-z]; 
         
-        if norm(cross(AB,AP))==0 && abs(x)>=abs(x_b) && abs(x)<=abs(x_c) && y>y_b && y<y_c
+        if norm(cross(AB,AP))==0 && abs(x)>=abs(x_b) && abs(x)<=abs(x_c) && y>=y_b && y<=y_c
             V_ab = [0;0;0];
         else
             V_ab = vel_segment(x_b,y_b,z_b,x_c,y_c,z_c,x,y,z);
@@ -32,7 +32,7 @@ for i=1:N
             CD=[x_b-x_c y_b-y_c z_b-z_c];
             CP=[x_b-x y_b-y z_b-z]; 
         
-            if norm(cross(CD,CP))==0 && abs(x)>=abs(x_b) && abs(x)<=abs(x_c) && y<y_b && y>y_c
+            if norm(cross(CD,CP))==0 && abs(x)>=abs(x_b) && abs(x)<=abs(x_c) && y<=y_b && y>=y_c
                 V_cd = [0;0;0];
             else
                 V_cd = vel_segment(x_b,y_b,z_b,x_c,y_c,z_c,x,y,z);
