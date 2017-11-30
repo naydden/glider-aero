@@ -13,7 +13,7 @@ for i=1:N
         x_b = vort_p(1,i,1); y_b = vort_p(1,i,2); z_b = vort_p(1,i,3);
         x_c = vort_p(2,i,1); y_c = vort_p(2,i,2); z_c = vort_p(2,i,3);
         V_ab = vel_segment(x_b,y_b,z_b,x_c,y_c,z_c,x,y,z);
-        if isnan(V_ab)
+        if isnan(V_ab(1)) || isinf(V_ab(1))
             V_ab = [0; 0; 0;];
         end
         % 0 equals vortex ring
@@ -24,7 +24,7 @@ for i=1:N
             x_b = vort_p(3,i,1); y_b = vort_p(3,i,2); z_b = vort_p(3,i,3);
             x_c = vort_p(4,i,1); y_c = vort_p(4,i,2);  z_c = vort_p(4,i,3);
             V_cd = vel_segment(x_b,y_b,z_b,x_c,y_c,z_c,x,y,z);
-            if isnan(V_cd)
+            if isnan(V_cd(1)) || isinf(V_cd(1))
                 V_cd = [0; 0; 0;];
             end
             x_b = vort_p(4,i,1); y_b = vort_p(4,i,2); z_b = vort_p(4,i,3);
