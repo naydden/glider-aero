@@ -12,14 +12,9 @@ V = [0; 0; 0;];
 for i=1:N
         x_b = vort_p(1,i,1); y_b = vort_p(1,i,2); z_b = vort_p(1,i,3);
         x_c = vort_p(2,i,1); y_c = vort_p(2,i,2); z_c = vort_p(2,i,3);
-        
-        AB=[x_b-x_c y_b-y_c z_b-z_c];
-        AP=[x_b-x y_b-y z_b-z]; 
-        
-        if norm(cross(AB,AP))==0 && abs(x)>=abs(x_b) && abs(x)<=abs(x_c) && y>=y_b && y<=y_c
-            V_ab = [0;0;0];
-        else
-            V_ab = vel_segment(x_b,y_b,z_b,x_c,y_c,z_c,x,y,z);
+        V_ab = vel_segment(x_b,y_b,z_b,x_c,y_c,z_c,x,y,z);
+        if isnan(V_ab)
+            V_ab = [0; 0; 0;];
         end
         % 0 equals vortex ring
         if vort_p(5,i,1) == 0          
@@ -28,16 +23,10 @@ for i=1:N
             V_bc = vel_segment(x_b,y_b,z_b,x_c,y_c,z_c,x,y,z);
             x_b = vort_p(3,i,1); y_b = vort_p(3,i,2); z_b = vort_p(3,i,3);
             x_c = vort_p(4,i,1); y_c = vort_p(4,i,2);  z_c = vort_p(4,i,3);
-            
-            CD=[x_b-x_c y_b-y_c z_b-z_c];
-            CP=[x_b-x y_b-y z_b-z]; 
-        
-            if norm(cross(CD,CP))==0 && abs(x)>=abs(x_b) && abs(x)<=abs(x_c) && y<=y_b && y>=y_c
-                V_cd = [0;0;0];
-            else
-                V_cd = vel_segment(x_b,y_b,z_b,x_c,y_c,z_c,x,y,z);
+            V_cd = vel_segment(x_b,y_b,z_b,x_c,y_c,z_c,x,y,z);
+            if isnan(V_cd)
+                V_cd = [0; 0; 0;];
             end
-            
             x_b = vort_p(4,i,1); y_b = vort_p(4,i,2); z_b = vort_p(4,i,3);
             x_c = vort_p(1,i,1); y_c = vort_p(1,i,2); z_c = vort_p(1,i,3);
             V_da = vel_segment(x_b,y_b,z_b,x_c,y_c,z_c,x,y,z);              
