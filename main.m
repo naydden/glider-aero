@@ -32,7 +32,7 @@ i_W = 0; %the chord of the center section of the wing has zero incidence angle w
 % HTP NACA 0009
 m_H = 0;
 p_H = 0;
-i_H = -4; % degrees
+i_H = 0; % degrees
 
 % VTP NACA 0009
 m_V = 0;
@@ -112,7 +112,7 @@ deltaY = b_W/(2*Ny);
 deltaYsim = [deltaY deltaY];
 
 %Plane incidence
-incidence=6;
+incidence=3;
 [Coord,Vortex,ControlP,DragP,Normal] = rotation(Coord,Vortex,ControlP,DragP,Normal,incidence,0,cr_W,x_offset_W,z_offset_W);
 
 %Symetric plane
@@ -147,7 +147,7 @@ axis equal;
 % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Nx=2; Ny=3;
-alpha = 0;
+alpha = 3;
 Uinf = [1*cosd(alpha),0,1*sind(alpha)];
 
 % Wing
@@ -158,7 +158,7 @@ x_offset_W=-0.25*cr_W; z_offset_W=0;
 [CoordW,VortexW,ControlPW,DragPW,NormalW] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
 
 %Horizontal tail
-cr_H=0.5*cr_W; ct_H=1*cr_H; b_H=0.5*b_W;
+cr_H=0.5*cr_W; ct_H=1*cr_H; b_H=0.25*b_W;
 sweep_H=0; dihedral_H=0; twist_H=0;
 x_offset_H=4-0.25*cr_H; z_offset_H=z_offset_W;
 
@@ -222,7 +222,7 @@ x_offset_W=-0.25*cr_W; z_offset_W=1;
 [CoordW,VortexW,ControlPW,DragPW,NormalW] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
 
 %Horizontal tail
-cr_H=0.5*cr_W; ct_H=1*cr_H; b_H=0.5*b_W;
+cr_H=0.5*cr_W; ct_H=1*cr_H; b_H=0.25*b_W;
 sweep_H=0; dihedral_H=0; twist_H=0;
 x_offset_H=4-0.25*cr_H; z_offset_H=z_offset_W;
 
@@ -249,7 +249,7 @@ deltaYsim = [deltaY deltaY];
 [Coord,Vortex,ControlP,DragP,Normal] = assembly(CoordW,VortexW,ControlPW,DragPW,NormalW,CoordT,VortexT,ControlPT,DragPT,NormalT);
 
 %Plane incidence
-incidence=6;
+incidence=3;
 [Coord,Vortex,ControlP,DragP,Normal] = rotation(Coord,Vortex,ControlP,DragP,Normal,incidence,0,cr_W,x_offset_W,z_offset_W);
 
 %Symetric plane

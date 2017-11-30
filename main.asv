@@ -32,7 +32,7 @@ i_W = 0; %the chord of the center section of the wing has zero incidence angle w
 % HTP NACA 0009
 m_H = 0;
 p_H = 0;
-i_H = -4; % degrees
+i_H = 0; % degrees
 
 % VTP NACA 0009
 m_V = 0;
@@ -49,24 +49,11 @@ rho = 1.225; % density [kg/m^3]
 % Ct/Cr (tip to chord) ratio is left free.
 
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
-% tic
-% twist_angle = 0:-1:-8;
-% alpha_angle = zeros(1,size(twist_angle,2));
-% for i = 1:size(twist_angle,2)
-%     alpha_angle(i) = ZLangle(cr,ct,b,Nx,Ny,m_w,p_w,sweep,dihedral,twist_angle(i),x_offset,z_offset,rho);
-% end
-% figure(1);
-% plot(twist_angle, alpha_angle);
-% xlabel('Twist angle (�)')
-% ylabel('\alpha_{ZL} (�)')
-% toc
-% Nx=10; Ny=50;
-% 
 
 % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Nx=2; Ny=3;
-alpha = -1.5; % angle of attack [degrees]
+alpha = 3; % angle of attack [degrees]
 Uinf = [1*cosd(alpha),0,1*sind(alpha)];
 
 % Wing
@@ -125,7 +112,7 @@ deltaY = b_W/(2*Ny);
 deltaYsim = [deltaY deltaY];
 
 %Plane incidence
-incidence=6;
+incidence=3;
 [Coord,Vortex,ControlP,DragP,Normal] = rotation(Coord,Vortex,ControlP,DragP,Normal,incidence,0,cr_W,x_offset_W,z_offset_W);
 
 %Symetric plane
@@ -160,7 +147,7 @@ axis equal;
 % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Nx=2; Ny=3;
-alpha = 0;
+alpha = 3;
 Uinf = [1*cosd(alpha),0,1*sind(alpha)];
 
 % Wing
@@ -171,7 +158,7 @@ x_offset_W=-0.25*cr_W; z_offset_W=0;
 [CoordW,VortexW,ControlPW,DragPW,NormalW] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
 
 %Horizontal tail
-cr_H=0.5*cr_W; ct_H=1*cr_H; b_H=0.5*b_W;
+cr_H=0.5*cr_W; ct_H=1*cr_H; b_H=0.25*b_W;
 sweep_H=0; dihedral_H=0; twist_H=0;
 x_offset_H=4-0.25*cr_H; z_offset_H=z_offset_W;
 
@@ -235,7 +222,7 @@ x_offset_W=-0.25*cr_W; z_offset_W=1;
 [CoordW,VortexW,ControlPW,DragPW,NormalW] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
 
 %Horizontal tail
-cr_H=0.5*cr_W; ct_H=1*cr_H; b_H=0.5*b_W;
+cr_H=0.5*cr_W; ct_H=1*cr_H; b_H=0.25*b_W;
 sweep_H=0; dihedral_H=0; twist_H=0;
 x_offset_H=4-0.25*cr_H; z_offset_H=z_offset_W;
 
@@ -262,7 +249,7 @@ deltaYsim = [deltaY deltaY];
 [Coord,Vortex,ControlP,DragP,Normal] = assembly(CoordW,VortexW,ControlPW,DragPW,NormalW,CoordT,VortexT,ControlPT,DragPT,NormalT);
 
 %Plane incidence
-incidence=6;
+incidence=3;
 [Coord,Vortex,ControlP,DragP,Normal] = rotation(Coord,Vortex,ControlP,DragP,Normal,incidence,0,cr_W,x_offset_W,z_offset_W);
 
 %Symetric plane
@@ -280,6 +267,8 @@ dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf);
 L = lift(dLw,dLh,dLv);
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp');
 Dind = drag(dDind,Nx,Ny);
+if Dind==NaN
+    
 [CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
 fprintf('Wing+VTP+HTP+Ground case: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L,Dind,M,CL,CD,Cm)
 
