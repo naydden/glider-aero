@@ -1,5 +1,5 @@
 % returns a Nx x Ny matrix with the inlfuence coefficients in it
-function a = influence_coef(vortice_mat,control,n)
+function [a,w] = influence_coef(vortice_mat,control,n)
 % vortice_mat is the matrix 5xNx3. First four rows are the A,B,C,D vertex 
 % coordinates vectors of the vortex ring. Last row is 0 if vortex ring, or 1 if
 % horseshoe vortex. Each column represents a single vortex.
