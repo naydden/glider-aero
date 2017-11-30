@@ -70,11 +70,12 @@ deltaY = b_W/(2*Ny);
 
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala');
-dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny,rho,Uinf); 
+[dDw,dDh,dDv] = delta_drag(Gamma,Vortex,DragP,deltaY,Nx,Ny,rho,Uinf,'ala');
+
 
 L = lift(dLw,dLh,dLv);
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala');
-Dind = drag(dDind,Nx,Ny);
+Dind = drag(dDw,dDh,dDv);
 [CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
 fprintf('Wing case: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L,Dind,M,CL,CD,Cm)
 
@@ -125,11 +126,12 @@ incidence=3;
 
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala');
-dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf); 
+[dDw,dDh,dDv] = delta_drag(Gamma,Vortex,DragP,deltaY,Nx,Ny,rho,Uinf,'ala');
+
 
 L = lift(dLw,dLh,dLv);
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala');
-Dind = drag(dDind,Nx,Ny);
+Dind = drag(dDw,dDh,dDv); 
 [CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
 fprintf('Wing case + ground: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L,Dind,M,CL,CD,Cm)
 
@@ -188,11 +190,12 @@ deltaY = [b_W/(2*Ny) b_H/(2*Ny) b_V/Ny];
 
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
-dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny,rho,Uinf); 
+[dDw,dDh,dDv] = delta_drag(Gamma,Vortex,DragP,deltaY,Nx,Ny,rho,Uinf,'ala');
+
 
 L = lift(dLw,dLh,dLv);
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp');
-Dind = drag(dDind,Nx,Ny);
+Dind = drag(dDw,dDh,dDv);
 [CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
 fprintf('Wing+VTP+HTP case: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L,Dind,M,CL,CD,Cm)
 
@@ -262,11 +265,11 @@ incidence=3;
 
 Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala+htp+vtp');
-dDind = delta_drag(Vortex,DragP,Gamma,deltaYsim,Nx,Ny,rho,Uinf); 
+[dDw,dDh,dDv] = delta_drag(Gamma,Vortex,DragP,deltaY,Nx,Ny,rho,Uinf,'ala');
 
 L = lift(dLw,dLh,dLv);
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp');
-Dind = drag(dDind,Nx,Ny);
+Dind = drag(dDw,dDh,dDv);
 [CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
 fprintf('Wing+VTP+HTP+Ground case: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L,Dind,M,CL,CD,Cm)
 

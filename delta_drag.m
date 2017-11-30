@@ -7,7 +7,7 @@ function [dDw,dDh,dDv] = delta_drag(Gamma,vortice_mat,control,deltaY,Nx,Ny,rho,U
     switch cas
         case 'ala'
             Gamma_w = rearrange_wing(Nx,Ny,Gamma,'wing');
-            w_w = rearrange_wing(Nx,Ny,w,'wing');           
+            w_w = rearrange_wing(Nx,Ny,w,'wing');     
             for i=1:Nx
                 for j=1:2*Ny
                     if i == 1
