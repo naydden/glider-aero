@@ -8,7 +8,7 @@ cr_W = 1; ct_W = 1; b_W = 10; sweep_W = 0; dihedral_W = 0; twist_W = 0;
 alpha = 3; x_offset_W = 0; z_offset_W=0; rho = 1.225;
 Uinf = [1*cosd(alpha),0,1*sind(alpha)];
 % Numerical
-Nx = 2; Ny = 2;
+Nx = 5; Ny = 5;
 deltaY = b_W/(2*Ny);
 [Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,...
 Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);

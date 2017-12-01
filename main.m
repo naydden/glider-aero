@@ -44,7 +44,7 @@ lt_cm = 4;
 
 rho = 1.225; % density [kg/m^3]
 
-Nx=2; Ny=3;
+Nx=5; Ny=10;
 
 % Assumptions:
 % AR of wing and HTP is high enough (>6) -> lifting line can be assumed
@@ -54,7 +54,7 @@ Nx=2; Ny=3;
 
 % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-alpha = 3; % angle of attack [degrees]
+alpha = 0; % angle of attack [degrees]
 Uinf = [1*cosd(alpha),0,1*sind(alpha)];
 
 % Wing
@@ -142,7 +142,7 @@ axis equal;
 
 % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-alpha = 3;
+alpha = 0;
 Uinf = [1*cosd(alpha),0,1*sind(alpha)];
 
 % Wing

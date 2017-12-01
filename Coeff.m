@@ -10,7 +10,8 @@ q = 0.5*rho*norm(Uinf)^2;
 
 % Coefficients
 CL = L/(q*S);
-CD = cdrag('2412',CL)+Dind/(q*S);
+% CD = cdrag('2412',CL)+Dind/(q*S);
+CD = Dind/(q*S);
 Cm = M/(q*S*MGC);
 
 end
