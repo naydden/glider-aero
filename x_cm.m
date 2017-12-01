@@ -39,7 +39,7 @@ x_offset_V=x_offset_H; z_offset_V=z_offset_W;
 
 % MOMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp')
+M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp');
 
 c=cr_W-(cr_W-ct_W)*Coord(1,Ny+1,2)/(b/2); %Computation of the wing chord
 
