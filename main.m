@@ -76,7 +76,9 @@ Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 L = lift(dLw,dLh,dLv);
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala');
 Dind = drag(dDw,dDh,dDv);
-[CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
+CDparw = cdragpar(dLw,deltaY(1),Ny,cr_W,ct_W,b_W,rho,Uinf,'ala');
+CDpar = [CDparw 0 0];
+[CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,CDpar,M);
 fprintf('Wing case: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L,Dind,M,CL,CD,Cm)
 
 % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,7 +96,7 @@ axis equal;
 
 % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-alpha = 3;
+alpha = 0;
 Uinf = [1,0,0];
 
 % Wing
@@ -126,7 +128,9 @@ Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 L = lift(dLw,dLh,dLv);
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala');
 Dind = drag(dDw,dDh,dDv); 
-[CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
+CDparw = cdragpar(dLw,deltaY(1),Ny,cr_W,ct_W,b_W,rho,Uinf,'ala');
+CDpar = [CDparw 0 0];
+[CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,CDpar,M);
 fprintf('Wing case + ground: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L,Dind,M,CL,CD,Cm)
 
 % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -187,7 +191,11 @@ Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 L = lift(dLw,dLh,dLv);
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp');
 Dind = drag(dDw,dDh,dDv);
-[CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
+CDparw = cdragpar(dLw,deltaY(1),Ny,cr_W,ct_W,b_W,rho,Uinf,'ala');
+CDparh = cdragpar(dLh,deltaY(2),Ny,cr_H,ct_H,b_H,rho,Uinf,'htp');
+CDparv = cdragpar(dLv,deltaY(3),Ny,cr_V,ct_V,b_V,rho,Uinf,'vtp');
+CDpar = [CDparw CDparh CDparv];
+[CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,CDpar,M);
 fprintf('Wing+VTP+HTP case: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L,Dind,M,CL,CD,Cm)
 
 % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -204,7 +212,7 @@ axis equal;
 
 % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-alpha = 3;
+alpha = 0;
 Uinf = [1,0,0];
 
 %Wing
@@ -259,7 +267,11 @@ Gamma = circulation(Uinf,Vortex,ControlP,Normal);
 L = lift(dLw,dLh,dLv);
 M = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala+htp+vtp');
 Dind = drag(dDw,dDh,dDv);
-[CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
+CDparw = cdragpar(dLw,deltaY(1),Ny,cr_W,ct_W,b_W,rho,Uinf,'ala');
+CDparh = cdragpar(dLh,deltaY(2),Ny,cr_H,ct_H,b_H,rho,Uinf,'htp');
+CDparv = cdragpar(dLv,deltaY(3),Ny,cr_V,ct_V,b_V,rho,Uinf,'vtp');
+CDpar = [CDparw CDparh CDparv];
+[CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,CDpar,M);
 fprintf('Wing+VTP+HTP+Ground case: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L,Dind,M,CL,CD,Cm)
 
 % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
