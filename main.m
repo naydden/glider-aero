@@ -94,9 +94,8 @@ axis equal;
 
 % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-incidence=3;
-alpha = 0;
-Uinf = [1*cosd(alpha),0,1*sind(alpha)];
+alpha = 3;
+Uinf = [1,0,0];
 
 % Wing
 cr_W=1; ct_W=1*cr_W; b_W=10;
@@ -107,6 +106,7 @@ x_offset_W=0; z_offset_W=1;
     Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
 
 %Plane incidence
+incidence=alpha;
 [Coord,Vortex,ControlP,DragP,Normal] = rotation(Coord,Vortex,ControlP,DragP,Normal,incidence,0,cr_W,x_offset_W,z_offset_W);
 
 %Symetric plane
@@ -204,9 +204,8 @@ axis equal;
 
 % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-incidence = 3;
-alpha = 0;
-Uinf = [1*cosd(alpha),0,1*sind(alpha)];
+alpha = 3;
+Uinf = [1,0,0];
 
 %Wing
 cr_W=1; ct_W=1*cr_W; b_W=10;
@@ -240,6 +239,7 @@ x_offset_V=x_offset_H; z_offset_V=z_offset_W;
 [Coord,Vortex,ControlP,DragP,Normal] = assembly(CoordW,VortexW,ControlPW,DragPW,NormalW,CoordT,VortexT,ControlPT,DragPT,NormalT);
 
 %Plane incidence
+incidence=alpha;
 [Coord,Vortex,ControlP,DragP,Normal] = rotation(Coord,Vortex,ControlP,DragP,Normal,incidence,0,cr_W,x_offset_W,z_offset_W);
 
 %Symetric plane
