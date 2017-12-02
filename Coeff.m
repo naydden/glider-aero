@@ -11,7 +11,6 @@ q = 0.5*rho*norm(Uinf)^2;
 % Coefficients
 CL = L/(q*S);
 CDpar = sum(CDpar);
-% CD = cdrag('2412',CL)+Dind/(q*S);
 CD = CDpar + Dind/(q*S);
 Cm = M/(q*S*MGC);
 
