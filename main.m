@@ -197,14 +197,14 @@ CDparv = cdragpar(dLv,deltaY(3),Ny,cr_V,ct_V,b_V,rho,Uinf,'vtp');
 CDpar = [CDparw CDparh CDparv];
 
 [CL, CD, Cm] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,CDpar,M);
-fprintf('Wing+VTP+HTP case: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L,Dind,M,CL,CD,Cm)
 
-% Computation of Xcm for M=0
-
+% Computation of Xcm for M=0 (respecte 1/4 de la corda)
 Xcm = x_cm(b_W,Nx,Ny,cr_W,ct_W,b_W,m_W,p_W,sweep_W,dihedral_W,...
     twist_W,z_offset_W,cr_H,ct_H,i_H,b_H,m_H,p_H,sweep_H,dihedral_H,...
     twist_H,cr_V,ct_V,b_V,m_V,p_V,sweep_V,dihedral_V,twist_V,dLw,dLh,dLv,M);
-% 
+
+fprintf('Wing+VTP+HTP case: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f Xcm=%f \n',L,Dind,M,CL,CD,Cm,Xcm)
+
 % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 figure(3);
@@ -213,6 +213,7 @@ hold on;
 surf(Coord(:,2*(Ny+1)+1:4*(Ny+1),1),Coord(:,2*(Ny+1)+1:4*(Ny+1),2),Coord(:,2*(Ny+1)+1:4*(Ny+1),3));
 hold on;
 surf(Coord(:,4*(Ny+1)+1:5*(Ny+1),1),Coord(:,4*(Ny+1)+1:5*(Ny+1),2),Coord(:,4*(Ny+1)+1:5*(Ny+1),3));
+hold on;
 axis equal;
 
 % %% Part 5: Assumption -> ground effect. CL, CD and CM_cm

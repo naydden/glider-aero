@@ -4,6 +4,7 @@ function Xcm = x_cm(b,Nx,Ny,cr_W,ct_W,b_W,m_W,p_W,sweep_W,dihedral_W,...
 
 x_offset_W = 0;
 k=0.005; s=0;
+
 while abs(M)>1e-9
  
 % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
