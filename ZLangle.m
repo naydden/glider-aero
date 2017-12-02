@@ -5,6 +5,7 @@ function alpha = ZLangle(cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist,x_offset,z_offse
 % Geometry
 [~,Vortex,ControlP,~,Normal] = wing_assembly (cr,ct,b,...
     Nx,Ny,m,p,sweep,dihedral,twist,x_offset,z_offset);
+deltaY = b/(2*Ny);
 
 alpha0 = -twist/4; % initial value of the iteration
 
@@ -23,13 +24,13 @@ while resta>delta
     
     % Computations
     Gamma = circulation(Uinf,Vortex,ControlP,Normal);
-    [dLw,dLh,dLv] = delta_lift(Gamma,b,Nx,Ny,rho,Uinf,'ala');
+    [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala');
      
     L = lift(dLw,dLh,dLv);
     [CL, ~, ~] = Coeff(cr,ct,b,Uinf,rho,L,0,0,0);
     resta = abs(CL);
     
-    dalpha = resta/2; % alpha increment
+    dalpha = 10*resta; % alpha increment
     
     % new alpha
     if(CL>0)
