@@ -60,15 +60,21 @@ x_offset_W=0; z_offset_W=0;
 twist_angle = 0:-1:-8;
 miau = size(twist_angle,2);
 alpha_angle = zeros(1,miau);
+CD0 = zeros(1,miau);
 
 for i = 1:miau
-    alpha_angle(i) = ZLangle(cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_angle(i),x_offset_W,z_offset_W,rho);
+    [alpha_angle(i), CD0(i)] = ZLangle(cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_angle(i),x_offset_W,z_offset_W,rho);
 end
 
 figure(1);
 plot(twist_angle, alpha_angle);
 xlabel('Twist angle (º)')
 ylabel('\alpha_{ZL} (º)')
+
+figure(2);
+plot(twist_angle, CD0);
+xlabel('Twist angle (º)')
+ylabel('C_{D}')
 
 %% Part 2: Plotting wing's aerodynamic polar for alpha 0 to 10 deg.
 
@@ -100,7 +106,7 @@ for i = 1:miau
 
 end
 
-figure(2);
+figure(3);
 plot(CL,CD);
 xlabel('C_{L}')
 ylabel('C_{D}')
@@ -222,7 +228,7 @@ fprintf('Wing+VTP+HTP case: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f Xcm=%f \n',L,
 
 % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-figure(3);
+figure(4);
 surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
 hold on;
 surf(Coord(:,2*(Ny+1)+1:4*(Ny+1),1),Coord(:,2*(Ny+1)+1:4*(Ny+1),2),Coord(:,2*(Ny+1)+1:4*(Ny+1),3));

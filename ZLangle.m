@@ -1,6 +1,6 @@
 % Function that gives the zero lift angle of attack of the wing (in the
 % central section)
-function alpha = ZLangle(cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist,x_offset,z_offset,rho)
+function [alpha, CD] = ZLangle(cr,ct,b,Nx,Ny,m,p,sweep,dihedral,twist,x_offset,z_offset,rho)
 
 % Geometry
 [~,Vortex,ControlP,~,Normal] = wing_assembly (cr,ct,b,...
@@ -45,3 +45,5 @@ while resta>delta
     end
     
 end
+
+CD = cdragpar(dLw,deltaY,Ny,cr,ct,b,rho,Uinf,'ala');
