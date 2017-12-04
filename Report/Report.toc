@@ -1,7 +1,0 @@
-\contentsline {chapter}{Llista de taules}{ii}{section*.1}
-\contentsline {chapter}{Llista de figures}{iii}{section*.2}
-\contentsline {chapter}{\numberline {1}Converg\IeC {\`e}ncia}{1}{chapter.1}
-\contentsline {chapter}{\numberline {2}Ala}{2}{chapter.2}
-\contentsline {chapter}{\numberline {3}Efecte terra}{3}{chapter.3}
-\contentsline {chapter}{\numberline {4}Ala i estabilitzadors}{4}{chapter.4}
-\contentsline {chapter}{\numberline {5}Bibliografia}{5}{chapter.5}
