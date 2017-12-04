@@ -46,4 +46,8 @@ while resta>delta
     
 end
 
+% Aquí imposo que el lift sigui 0, perquè en realitat no ho és, ja que ho
+% calculo amb una precisió 1e-3. Això fa que el CD em doni igual per tots
+% els valors de twist.
+dLw = zeros(1,2*Ny);
 CD = cdragpar(dLw,deltaY,Ny,cr,ct,b,rho,Uinf,'ala');

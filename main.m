@@ -53,7 +53,7 @@ Nx=5; Ny=10;
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
 
 % Wing
-cr_W=1; ct_W=1*cr_W; b_W=10;
+cr_W=1; ct_W=2/7*cr_W; b_W=23; % data from https://www.akaflieg.tu-darmstadt.de/d-45/
 sweep_W=0; dihedral_W=0;
 x_offset_W=0; z_offset_W=0;
 
