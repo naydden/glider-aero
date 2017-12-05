@@ -6,9 +6,11 @@ m_W = 0.02;
 p_W = 0.4;
 
 % Wing geometry
+lambda = 0.3;
+A_ratio = 26;
 cr_W = 1;
-ct_W = 1;
-b_W = 20;
+ct_W = lambda*cr_W;
+b_W=A_ratio*0.5*(cr_W+ct_W);
 sweep_W = 0;
 dihedral_W = 0;
 twist_W = 0;
@@ -19,6 +21,7 @@ x_offset_W = 0;
 z_offset_W = 0;
 rho = 1.225;
 Uinf = [1*cosd(alpha),0,1*sind(alpha)];
+CDpar = [0 0 0];
 
 %% Ny
 
@@ -32,11 +35,8 @@ for i = 1:size(Ny,2)
         Nx,Ny(i),m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
     Gamma = circulation(Uinf,Vortex,ControlP,Normal);
     [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny(i),rho,Uinf,'ala');
-    dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Nx,Ny(i),rho,Uinf);
     L = lift(dLw,dLh,dLv);
-    M = moment(dLw,dLh,dLv,Nx,Ny(i),DragP(:,:,1),'ala');
-    Dind = drag(dDind,Nx,Ny(i));
-    [CL(i), ~, ~] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
+    [CL(i), ~, ~] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,0,CDpar,0);
     display(Ny(i));
 end
 
@@ -59,11 +59,8 @@ for i = 1:size(Numberx,2)
         Numberx(i),Numbery,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
     Gamma = circulation(Uinf,Vortex,ControlP,Normal);
     [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Numberx(i),Numbery,rho,Uinf,'ala');
-    dDind = delta_drag(Vortex,DragP,Gamma,deltaY,Numberx(i),Numbery,rho,Uinf);
     L = lift(dLw,dLh,dLv);
-    M = moment(dLw,dLh,dLv,Numberx(i),Numbery,DragP(:,:,1),'ala');
-    Dind = drag(dDind,Numberx(i),Numbery);
-    [CLift(i), ~, ~] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,M);
+    [CLift(i), ~, ~] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,0,CDpar,0);
     display(Numberx(i));
 end
 

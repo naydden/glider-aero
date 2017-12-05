@@ -53,7 +53,7 @@ Nx=5; Ny=10;
 % Wing
 lambda = 0.3;
 A_ratio = 26;
-cr_W=1; ct_W=lambda*cr_W; b_W=23; % data from https://www.akaflieg.tu-darmstadt.de/d-45/
+cr_W=1; ct_W=lambda*cr_W; b_W=A_ratio*0.5*(cr_W+ct_W);
 sweep_W=0; dihedral_W=0;
 
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
@@ -73,11 +73,14 @@ figure(1);
 plot(twist_angle, alpha_angle);
 xlabel('Twist angle (º)')
 ylabel('\alpha_{ZL} (º)')
+grid on;
 
 figure(2);
 plot(twist_angle, CD0);
 xlabel('Twist angle (º)')
 ylabel('C_{D}')
+axis([-8 0 0 0.010])
+grid on;
 
 %% Part 2: Plotting wing's aerodynamic polar for alpha 0 to 10 deg.
 
@@ -113,6 +116,7 @@ figure(3);
 plot(CL,CD);
 xlabel('C_{L}')
 ylabel('C_{D}')
+grid on;
 
 figure(5);
 surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
