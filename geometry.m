@@ -59,9 +59,9 @@ for j=1:Ny+1
         x(i,j)=cr/4-c/4+c*(i-1)/Nx+y(i,j)*tand(sweep); %X Coordinate of the points of the elemnts
         xp(i,j)=cr/4-c/4+c*(i-1)/Nx+c/(4*Nx)+yp(i,j)*tand(sweep); %X Coordinate of the points of the vortex
         xadim=(x(i,j)-x(1,j))/c; %Adimensionalization of the x coordinatie of the points
-        z(i,j)=camber(xadim,m,p)+y(i,j)*tand(dihedral); %Z Coordinate of the points of the elemnts
+        z(i,j)=camber(xadim,m,p)*c+y(i,j)*tand(dihedral); %Z Coordinate of the points of the elemnts
         xadimp=(xp(i,j)-x(1,j))/c; %Adimensionalization of the x coordinatie of the vector
-        zp(i,j)=camber(xadimp,m,p)+yp(i,j)*tand(dihedral); %Z Coordinate of the points of the vortex
+        zp(i,j)=camber(xadimp,m,p)*c+yp(i,j)*tand(dihedral); %Z Coordinate of the points of the vortex
         if c==0
             z(i,j)=y(i,j)*tand(dihedral); %If c=0, xadmin is 0/0, which gives NaN, so it is corrected
             zp(i,j)=yp(i,j)*tand(dihedral); %If c=0, xadmin is 0/0, which gives NaN, so it is corrected
@@ -80,8 +80,8 @@ for j=1:Ny
         xd(i,j)=(xp(i,j)+xp(i,j+1))/2;  % X Coordinate of the drag control points
         xadimc=(xc(i,j)-((x(1,j)+x(1,j+1))/2))/c; %Adimensionalization  of the x coordinate of the control point
         xadimd=(xd(i,j)-((x(1,j)+x(1,j+1))/2))/c; %Adimensionalization  of the x coordinate of the drag control point
-        zc(i,j)=camber(xadimc,m,p)+yc(i,j)*tand(dihedral); %Z Coordinate  of the control points
-        zd(i,j)=camber(xadimd,m,p)+yc(i,j)*tand(dihedral); %Z Coordinate of the drag control points
+        zc(i,j)=camber(xadimc,m,p)*c+yc(i,j)*tand(dihedral); %Z Coordinate  of the control points
+        zd(i,j)=camber(xadimd,m,p)*c+yc(i,j)*tand(dihedral); %Z Coordinate of the drag control points
     end
 end
 
