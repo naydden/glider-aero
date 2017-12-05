@@ -50,11 +50,14 @@ Nx=5; Ny=10;
 % AR of wing and HTP is high enough (>6) -> lifting line can be assumed
 % Ct/Cr (tip to chord) ratio is left free.
 
+% Wing
+lambda = 0.3;
+A_ratio = 26;
+cr_W=1; ct_W=lambda*cr_W; b_W=23; % data from https://www.akaflieg.tu-darmstadt.de/d-45/
+sweep_W=0; dihedral_W=0;
+
 %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
 
-% Wing
-cr_W=1; ct_W=2/7*cr_W; b_W=23; % data from https://www.akaflieg.tu-darmstadt.de/d-45/
-sweep_W=0; dihedral_W=0;
 x_offset_W=0; z_offset_W=0;
 
 twist_angle = 0:-1:-8;
@@ -87,7 +90,7 @@ CL = zeros(1,miau);
 CD = zeros(1,miau);
 
 % Geometry
-[~,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,...
+[Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,...
     Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
 deltaY = b_W/(2*Ny);
 
@@ -110,6 +113,10 @@ figure(3);
 plot(CL,CD);
 xlabel('C_{L}')
 ylabel('C_{D}')
+
+figure(5);
+surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
+axis equal;
 
 % %% Part 3: Assumption -> Ground Effect. 
 % % Plot CL and CD for alpha 6deg, against AR 0.075Ao to 1.25Ao
@@ -171,8 +178,6 @@ alpha = 0;
 Uinf = [1*cosd(alpha),0,1*sind(alpha)];
 
 % Wing
-cr_W=1; ct_W=1*cr_W; b_W=10;
-sweep_W=0; dihedral_W=0; twist_W=0; 
 x_offset_W=-2; z_offset_W=0;
 
 [CoordW,VortexW,ControlPW,DragPW,NormalW] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);

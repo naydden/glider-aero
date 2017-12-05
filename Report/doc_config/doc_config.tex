@@ -94,7 +94,7 @@
 \usepackage{float}                  % Required for some float properties.
 \usepackage{pdfpages}               % Required for the inclusion of PDF files.
 \usepackage{multirow,longtable,array,booktabs,tabularx} % More features for tables.
-\usepackage{enumerate}              % Gives the enumerate environment an optional argument which
+%\usepackage{enumerate}              % Gives the enumerate environment an optional argument which
                                     % determines the style in which the counter is printed.
 \usepackage{enumitem}               % Extra options for "enumerate" lists
 \usepackage{color}                  % Use some color options.
@@ -128,3 +128,5 @@
 \usepackage{import}
 
 \usepackage{makecell}
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
