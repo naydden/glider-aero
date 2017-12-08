@@ -6,28 +6,74 @@ Es comença analitzant l'aerodinàmica de l'ala aïllada per poder estudiar com 
 
 A continuació, s'afegeixen els estabilitzadors vertical i horitzontal i, de nou, se n'estudia els coeficients aerodinàmics. També s'afegeix l'anàlisi de moments. Finalment, es realitza l'anàlisi del planejador complet amb efecte terra.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{plots/enunciat.png}
 	\caption{Esquema del planejador}
 	\label{enunciat}
 \end{figure}
 
-L'esquema del planejador, així com els paràmetres geomètrics i els eixos de referència utilitzats, es troben definits en la figura \ref{enunciat}. Les relacions entre alguns d'aquests paràmetres estan fixats per les següents expressions:
-\begin{itemize}
-	\item $\frac{S_{t}}{S}=\frac{1}{8}$
-	\item $\frac{S_{v}}{S}=\frac{2}{3}$
-	\item $\frac{l_{t}}{\bar{c}}=4$
-\end{itemize}
+L'esquema del planejador, així com els paràmetres geomètrics i els eixos de referència utilitzats, es troben definits en la Figura~\ref{enunciat}. A més, algunes de les relacions entre aquests paràmetres venen fixades per l'enunciat (veure Taula~\ref{tab:Dades}).
 
-Per tal de definir els paràmetres bàsics de la geometria de l'ala del planejador, s'ha agafat com a referència l'avió SZD-56 Diana 2 de Diana Sailplanes \cite{Kubrynski2006}. Els valors determinats són:
-\begin{itemize}
-	\item $\lambda=0.3$
-	\item $A=26$
-	\item $\Lambda=0$
-	\item $\Gamma=0$
-\end{itemize}
+\begin{table} [H]
+	\centering
+	\caption{Relacions Geomètriques fixades.} \label{tab:Dades}
+	\vspace{10pt}
+	\begin{tabular}{| c | c | c | c |}	
+		\hline
+		\multicolumn{4}{|c|}{\bfseries Relacions geomètrqiques fixades} \\
+		\hline\hline
+	\textbf{$S_{t}/S$} & \textbf{$S_{v}/S_{t}$} & \textbf{$l_{t}/\bar{c}$} & \textbf{$A$}\\ \hline 
+		$\frac{1}{8}$ & $\frac{2}{3}$ & $4$ & $>6$\\
+		\hline	
+	\end{tabular} 
+\end{table}
 
-% Falta posar coses de geometria dels estabilitzadors crec, però aquests valors no sé quins són :s
 
-En quant als perfils utilitzats, en l'ala s'assumeix un perfil NACA 2412 i en els estabilitzadors vertical i horitzontal, NACA 0009.
+A continuació, per tal de definir els paràmetres bàsics de la geometria de l'ala del planejador no establerts, s'ha agafat com a referència l'avió SZD-56 Diana 2 de Diana Sailplanes \cite{Kubrynski2006}. Els valors obtinguts es mostren a la Taula~\ref{tab:WingGeom}.
+
+\begin{table} [h]
+	\centering
+	\caption{Paràmetres geomètrics de l'ala} \label{tab:WingGeom}
+	\vspace{10pt}
+	\begin{tabular}{| c | c | c | c |}	
+		\hline
+		\multicolumn{4}{|c|}{\bfseries Paràmetres geomètrics de l'ala} \\
+		\hline\hline
+	\textbf{$\lambda$} & \textbf{$\Lambda$} & \textbf{$\Gamma$} & \textbf{$A$}\\ \hline 
+		$0.3$ & $0$ & $0$ & $26$\\
+		\hline	
+	\end{tabular} 
+\end{table}
+
+Un cop definida la geometria alar, s'ha de definir la geometria dels estabilitzadors tant horitzontal com vertical. Les dimensions escullides es mostren a Taules~ \ref{tab:HSGeom} y \ref{tab:VSGeom}..
+
+\begin{table} [h]
+	\centering
+	\caption{Paràmetres geomètrics de l'estabilitzador horitzontal} \label{tab:HSGeom}
+	\vspace{10pt}
+	\begin{tabular}{| c | c | c | c | c |}	
+		\hline
+		\multicolumn{5}{|c|}{\bfseries Estabilitzador horitzontal} \\
+		\hline\hline
+	\textbf{$\lambda$} & \textbf{$\Lambda$} & \textbf{$\Gamma$} & \textbf{$c_{rh}$} & \textbf{$b_{h}$} \\ \hline
+		$0.5$ & $0$ & $0$ & $0.5c_{rW}$ & $0.25b_{w}$\\
+		\hline	
+	\end{tabular} 
+\end{table}
+
+\begin{table} [h]
+	\centering
+	\caption{Paràmetres geomètrics de l'estabilitzador vertical} \label{tab:VSGeom}
+	\vspace{10pt}
+	\begin{tabular}{| c | c | c | c |}	
+		\hline
+		\multicolumn{4}{|c|}{\bfseries Estabilitzador vertical} \\
+		\hline\hline
+	\textbf{$\lambda$} & \textbf{$\Lambda$} & \textbf{$\Gamma$} & \textbf{$c_{rV}$}  \\ \hline
+		$0.5$ & $0$ & $0$ & $c_{rh}$ \\
+		\hline	
+	\end{tabular} 
+\end{table}
+
+Per últim, pel que fa als perfils utilitzats, en l'ala s'assumeix un perfil NACA 2412 i en els estabilitzadors vertical i horitzontal, NACA 0009.
