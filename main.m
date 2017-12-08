@@ -56,6 +56,16 @@ A_ratio = 26;
 cr_W=1; ct_W=lambda*cr_W; b_W=A_ratio*0.5*(cr_W+ct_W);
 sweep_W=0; dihedral_W=0;
 
+% %Horizontal tail
+lambdah = lambda;
+cr_H=0.5*cr_W; ct_H=lambda*cr_H; b_H=0.25*b_W;
+sweep_H=0; dihedral_H=0; twist_H=0;
+
+% %Vertical tail
+cr_V=1*cr_H; ct_V=1*cr_V; b_V=4/3*b_H/2;
+sweep_V=0; dihedral_V=0; twist_V=0; 
+
+
 % %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
 % 
 % x_offset_W=0; z_offset_W=0;
