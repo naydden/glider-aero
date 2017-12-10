@@ -1,21 +1,5 @@
 \chapter{Ala}
-Començant pels càlculs més bàsics, s'estudia el comportament de l'ala com a cos aïllat. Per a fer-ho, es proposa un programa basat en l'algoritme que es mostra a continuació.
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.185]{./plots/algoritmewing}
-\end{figure}
-
-Com es pot observar, es comença proposant la geometria de l'ala i les condicions cinemàtiques. Cal calcular les coordenades dels punts de control i dels punts de vòrtexs.
-
-Un cop es tenen definides totes les dades, el primer pas és el càlcul de la velocitat induïda per cada anell de vorticitat $i$ en cada punt de control $j$. Tanmateix cal tenir en compte que cada anell consta de 4 segments de vòrtexs. Per tant, la velocitat induïda total de l'anell és la suma de les velocitats induïdes per cada segment de vorticitat:
-\begin{equation}
-\vec{v}_{ij}=\vec{v}_{ij_{AB}}+\vec{v}_{ij_{BC}}+\vec{v}_{ij_{CD}}+\vec{v}_{ij_{DA}}
-\end{equation}
-I la velocitat de cada segment ve determinada per l'expressió:
-\begin{equation}
-\vec{v}_{ij_{segment}}=\frac{\Gamma_{i}}{4\pi}\frac{|\vec{r}_{1}|+|\vec{r}_{2}|}{|\vec{r}_{1}||\vec{r}_{2}|(|\vec{r}_{1}||\vec{r}_{2}|+\vec{r}_{1}\cdot\vec{r}_{2})}
-\end{equation}
-on $\Gamma_{i}$ és la circulació que cal determinar i $\vec{r}_{1}$ i $\vec{r}_{1}$ són les distàncies del punt de control als extrems del segment de vorticitat.
+Començant pels càlculs més bàsics, s'estudia el comportament de l'ala com a cos aïllat. En els següents apartats es descriuen l'efecte de l'angle de twist en l'aerodinàmica de l'ala i la variació de la resistència aerodinàmica en funció de la sustentació.
 
 \section{Angle de sustentació nul·la}
 L'únic paràmetre geomètric de l'ala que queda per determinar és l'angle de twist. Per tal de fer-ho, és útil calcular l'angle de sustentació nul·la de la secció central de l'ala per a diferents valors d'aquest angle, concretament en el rang de -8 a 0$^{\circ}$. L'algoritme seguit per fer-ho es mostra a continuació.
@@ -54,7 +38,7 @@ Com és de suposar, ja que la sustentació és nul·la, la resistència induïda
 Veient que la resistència paràsita no depèn del valor de twist, aquests resultats només serveixen per reafirmar la decisió presa en l'apartat anterior d'assignar al planejador un angle de twist de 0$^{\circ}$.
 
 \section{Corba polar}
-Finalment, per completar l'anàlisi de l'aerodinàmica de l'ala, és necessari calcular els coeficients de sustentació i de resistència aerodinàmica. Per tal d'obtindre diversos valors significatius, aquests s'estudien per a diversos angles d'atac, de 0 a 10$^{\circ}$.
+Finalment, per completar l'anàlisi de l'aerodinàmica de l'ala, és necessari calcular els coeficients de sustentació i de resistència aerodinàmica. Per tal d'obtindre diversos valors significatius, aquests s'estudien per a diversos angles d'atac, de 0 a 10$^{\circ}$. L'algoritme seguit és el que s'il·lustra a la secció \ref{algoritmeala}.
 
 \begin{figure}[h]
 	\centering
