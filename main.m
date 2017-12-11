@@ -62,161 +62,164 @@ cr_H=0.5*cr_W; ct_H=lambda*cr_H; b_H=0.25*b_W;
 sweep_H=0; dihedral_H=0; twist_H=0;
 
 % %Vertical tail
-cr_V=1*cr_H; ct_V=1*cr_V; b_V=4/3*b_H/2;
+cr_V=1*cr_H; ct_V=1*cr_V; b_V=4/3*b_H;
 sweep_V=0; dihedral_V=0; twist_V=0; 
 
 
-%% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
-
-x_offset_W=0; z_offset_W=0;
-
-twist_angle = 0:-1:-8;
-miau = size(twist_angle,2);
-alpha_angle = zeros(1,miau);
-CD0 = zeros(1,miau);
-
-for i = 1:miau
-    [alpha_angle(i), CD0(i)] = ZLangle(cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_angle(i),x_offset_W,z_offset_W,rho);
-end
-
-figure(1);
-plot(twist_angle, alpha_angle);
-xlabel('Twist angle (º)')
-ylabel('\alpha_{ZL} (º)')
-grid on;
-
-figure(2);
-plot(twist_angle, CD0);
-xlabel('Twist angle (º)')
-ylabel('C_{D}')
-axis([-8 0 0 0.010])
-grid on;
-
-%% Part 2: Plotting wing's aerodynamic polar for alpha 0 to 10 deg.
-
-% Wing
-twist_W=0;
-
-alpha = 0:1:10;
-miau = size(alpha,2);
-CL = zeros(1,miau);
-CD = zeros(1,miau);
-
-% Geometry
-[Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,...
-    Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
-deltaY = b_W/(2*Ny);
-
-for i = 1:miau
-    
-    Uinf = [1*cosd(alpha(i)),0,1*sind(alpha(i))];
-    Gamma = circulation(Uinf,Vortex,ControlP,Normal);
-    [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala');
-    [dDw,dDh,dDv] = delta_drag(Gamma,Vortex,DragP,deltaY,Nx,Ny,rho,Uinf,'ala');
-    
-    L = lift(dLw,dLh,dLv);
-    Dind = drag(dDw,dDh,dDv);
-    CDparw = cdragpar(dLw,deltaY,Ny,cr_W,ct_W,b_W,rho,Uinf,'ala');
-    CDpar = [CDparw 0 0];
-    [CL(i), CD(i), ~] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,CDpar,0);
-
-end
-
-figure(3);
-plot(CL,CD);
-xlabel('C_{L}')
-ylabel('C_{D}')
-grid on;
-
+% %% Part 1: Compute ZL angle of wing for twist (0 to 8 deg) and CD.
+% 
+% x_offset_W=0; z_offset_W=0;
+% 
+% twist_angle = 0:-1:-8;
+% miau = size(twist_angle,2);
+% alpha_angle = zeros(1,miau);
+% CD0 = zeros(1,miau);
+% 
+% for i = 1:miau
+%     [alpha_angle(i), CD0(i)] = ZLangle(cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_angle(i),x_offset_W,z_offset_W,rho);
+% end
+% 
+% figure(1);
+% plot(twist_angle, alpha_angle);
+% xlabel('Twist angle (º)')
+% ylabel('\alpha_{ZL} (º)')
+% grid on;
+% 
+% figure(2);
+% plot(twist_angle, CD0);
+% xlabel('Twist angle (º)')
+% ylabel('C_{D}')
+% axis([-8 0 0 0.010])
+% grid on;
+% 
+% %% Part 2: Plotting wing's aerodynamic polar for alpha 0 to 10 deg.
+% 
+% % Wing
+% twist_W=0;
+% 
+% alpha = 0:1:10;
+% miau = size(alpha,2);
+% CL = zeros(1,miau);
+% CD = zeros(1,miau);
+% 
+% % Geometry
+% [Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,...
+%     Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
+% deltaY = b_W/(2*Ny);
+% 
+% for i = 1:miau
+%     
+%     Uinf = [1*cosd(alpha(i)),0,1*sind(alpha(i))];
+%     Gamma = circulation(Uinf,Vortex,ControlP,Normal);
+%     [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala');
+%     [dDw,dDh,dDv] = delta_drag(Gamma,Vortex,DragP,deltaY,Nx,Ny,rho,Uinf,'ala');
+%     
+%     L = lift(dLw,dLh,dLv);
+%     Dind = drag(dDw,dDh,dDv);
+%     CDparw = cdragpar(dLw,deltaY,Ny,cr_W,ct_W,b_W,rho,Uinf,'ala');
+%     CDpar = [CDparw 0 0];
+%     [CL(i), CD(i), ~] = Coeff(cr_W,ct_W,b_W,Uinf,rho,L,Dind,CDpar,0);
+% 
+% end
+% 
+% figure(3);
+% plot(CL,CD);
+% xlabel('C_{L}')
+% ylabel('C_{D}')
+% grid on;
+% 
 % figure(5);
 % surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
 % axis equal;
 
-% %% Part 3: Assumption -> Ground Effect. 
-% % Plot CL and CD for alpha 6deg, against AR 0.075Ao to 1.25Ao
-% % Ao is the nominal aspect ratio
-% 
-% % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-% alpha = 6;
-% Uinf = [1,0,0];
-% 
-% A=linspace(0.75*A_ratio,1.25*A_ratio,6);
-% 
-% MGC=0.5*(cr_W+ct_W);
-% b_W=A*MGC;
-% sweep_W=0; dihedral_W=0; twist_W=0; 
-% x_offset_W=0; z_offset_W=1;
-% 
-% L=zeros(1,length(A));
-% Dind=zeros(1,length(A));
-% M=zeros(1,length(A));
-% CL=zeros(1,length(A));
-% CD=zeros(1,length(A));
-% Cm=zeros(1,length(A));
-% 
-% for i=1:length(A)
-%     % Wing
-%     [Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W(i),Nx,...
-%         Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
-% 
-%     %Plane incidence
-%     incidence=alpha;
-%     [Coord,Vortex,ControlP,DragP,Normal] = rotation(Coord,Vortex,ControlP,DragP,Normal,incidence,0,cr_W,x_offset_W,z_offset_W);
-% 
-%     %Symetric plane
-%     [Coord_Mirr,Vortex_Mirr,ControlP_Mirr,DragP_Mirr,Normal_Mirr] = mirror (Coord,Vortex,ControlP,DragP,Normal);
-% 
-%     %Ground-effect assembly
-%     [Coord,Vortex,ControlP,DragP,Normal] = assembly(Coord,Vortex,ControlP,DragP,Normal,Coord_Mirr,Vortex_Mirr,ControlP_Mirr,DragP_Mirr,Normal_Mirr);
-% 
-%     % COMPUTATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-%     deltaY = b_W(i)/(2*Ny);
-% 
-%     Gamma = circulation(Uinf,Vortex,ControlP,Normal);
-%     [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala');
-%     [dDw,dDh,dDv] = delta_drag(Gamma,Vortex,DragP,deltaY,Nx,Ny,rho,Uinf,'ala');
-% 
-%     L(i) = lift(dLw,dLh,dLv);
-%     M(i) = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala');
-%     Dind(i) = drag(dDw,dDh,dDv); 
-%     CDparw = cdragpar(dLw,deltaY(1),Ny,cr_W,ct_W,b_W(i),rho,Uinf,'ala');
-%     CDpar = [CDparw 0 0];
-% 
-%     [CL(i), CD(i), Cm(i)] = Coeff(cr_W,ct_W,b_W(i),Uinf,rho,L(i),Dind(i),CDpar,M(i));
-% 
-% end
-% 
-% fprintf('Wing case + ground: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L(i),Dind(i),M(i),CL(i),CD(i),Cm(i))
-% 
-% % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-% figure(1);
-% surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
-% hold on;
-% surf(Coord(:,2*(Ny+1)+1:4*(Ny+1),1),Coord(:,2*(Ny+1)+1:4*(Ny+1),2),Coord(:,2*(Ny+1)+1:4*(Ny+1),3));
-% axis equal;
-% 
-% figure(2);
-% plot(A,CL);
-% title('CL for diferent aspect ratios');
-% xlabel('Aspect ratio');
-% ylabel('CL');
-% 
-% figure(3);
-% plot(A,CD);
-% title('CD for diferent aspect ratios');
-% xlabel('Aspect ratio');
-% ylabel('CD');
-% 
-% figure(4);
-% plot(A,Cm);
-% title('Cm for diferent aspect ratios');
-% xlabel('Aspect ratio');
-% ylabel('Cm');
-% 
-% 
+%% Part 3: Assumption -> Ground Effect. 
+% Plot CL and CD for alpha 6deg, against AR 0.075Ao to 1.25Ao
+% Ao is the nominal aspect ratio
+
+% GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+alpha = 6;
+Uinf = [1,0,0];
+
+A=linspace(0.75*A_ratio,1.25*A_ratio,1);
+
+MGC=0.5*(cr_W+ct_W);
+b_W=A*MGC;
+sweep_W=0; dihedral_W=0; twist_W=0; 
+x_offset_W=0; z_offset_W=1000*MGC;
+
+L=zeros(1,length(A));
+Dind=zeros(1,length(A));
+M=zeros(1,length(A));
+CL=zeros(1,length(A));
+CD=zeros(1,length(A));
+Cm=zeros(1,length(A));
+
+for i=1:length(A)
+    % Wing
+    [Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W(i),Nx,...
+        Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
+
+    %Plane incidence
+    incidence=alpha;
+    [Coord,Vortex,ControlP,DragP,Normal] = rotation(Coord,Vortex,ControlP,DragP,Normal,incidence,0,cr_W,x_offset_W,z_offset_W);
+
+    %Symetric plane
+    [Coord_Mirr,Vortex_Mirr,ControlP_Mirr,DragP_Mirr,Normal_Mirr] = mirror (Coord,Vortex,ControlP,DragP,Normal);
+
+    %Ground-effect assembly
+    [Coord,Vortex,ControlP,DragP,Normal] = assembly(Coord,Vortex,ControlP,DragP,Normal,Coord_Mirr,Vortex_Mirr,ControlP_Mirr,DragP_Mirr,Normal_Mirr);
+
+    % COMPUTATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    deltaY = b_W(i)/(2*Ny);
+
+    Gamma = circulation(Uinf,Vortex,ControlP,Normal);
+    [dLw,dLh,dLv] = delta_lift(Gamma,deltaY,Nx,Ny,rho,Uinf,'ala');
+    [dDw,dDh,dDv] = delta_drag(Gamma,Vortex,DragP,deltaY,Nx,Ny,rho,Uinf,'ala');
+
+    L(i) = lift(dLw,dLh,dLv);
+    M(i) = moment(dLw,dLh,dLv,Nx,Ny,DragP(:,:,1),'ala');
+    Dind(i) = drag(dDw,dDh,dDv); 
+    CDparw = cdragpar(dLw,deltaY(1),Ny,cr_W,ct_W,b_W(i),rho,Uinf,'ala');
+    CDpar = [CDparw 0 0];
+
+    [CL(i), CD(i), Cm(i)] = Coeff(cr_W,ct_W,b_W(i),Uinf,rho,L(i),Dind(i),CDpar,M(i));
+
+end
+
+fprintf('Wing case + ground: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L(1),Dind(1),M(1),CL(1),CD(1),Cm(1))
+
+% PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+figure(1);
+surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
+hold on;
+surf(Coord(:,2*(Ny+1)+1:4*(Ny+1),1),Coord(:,2*(Ny+1)+1:4*(Ny+1),2),Coord(:,2*(Ny+1)+1:4*(Ny+1),3));
+axis equal;
+
+figure(2);
+plot(A,CL);
+title('CL per a diferents valors de allargament');
+xlabel('Allargament');
+ylabel('CL');
+%createfigure(A, CL, 'A', 'Allargament', 'CL', 'CL en funció del allargament','CL_A');
+
+figure(3);
+plot(A,CD);
+title('CD per a diferents valors de allargament');
+xlabel('Allargament');
+ylabel('CD');
+%createfigure(A, CD, 'A', 'Allargament', 'CD', 'CD en funció del allargament','CD_A');
+
+figure(4);
+plot(A,Cm);
+title('Cm per a diferents valors de allargament');
+xlabel('Allargament');
+ylabel('Cm');
+%createfigure(A, Cm, 'A', 'Allargament', 'Cm', 'Cm en funció del allargament','Cm_A');
+
+
 % %% Part 4: CL and CD and Xcm for Sum(M)=0 when alpha = 6deg
 % 
 % % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

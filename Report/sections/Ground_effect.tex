@@ -1,1 +1,60 @@
 \chapter{Efecte terra}
+Un cop s'ha estudiat el comportament de l'ala sola, s'analitza el seu compotament sota les condicions d'efecte terra. L'efecte terra consisteix en el comportament que presenta l'ala quan es troba a una distància petita respecte el terra. En aquestes condicions, la presència d'una superfície sola força a la velocitat sobre el terra a mentenir-se paral·lela a aquest, quan en condicions normals no ho faria. Això provoca una variació del flux d'aire, que fa variar la sustentació i resistència aerodinàmica de l'ala.
+
+En el nostre cas, l'ala es troba a una distància de $h=\bar{c}$, i amb un angle d'atac respecte la velocitat de 6$^{\circ}$. A la figura \ref{GroundEffect} es pot veure un esquema d'aquest cas.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{./plots/GroundEffectWing.png}
+	\caption{Esquema de la posició de l'ala sobre el terra}
+	\label{GroundEffect}
+\end{figure}
+
+Concretament s'estudiarà la diferència del $C_{L}$ i del $C_{D}$, amb i sense presència d'efecte terra. Adicionalment, s'estudiarà com varien aquests valors en funció de l'allargament de l'ala.
+
+\section{Variació dels coeficients}
+
+Agafant l'ala que ja s'ha descrit als apartats anteriors, sense torsió, i amb un angle d'atac de 6$^{\circ}$, es comparen els resultats dels coeficients aerodinàmics per el cas sense efecte terra, i per el cas amb efecte terra. Els resultats es poden veure a la taula \ref{NoGroundvsGround}.
+
+\begin{table} [H]
+	\centering
+	\begin{tabular}{| c | c | c | c |}	
+		\hline
+		& $C_{L}$ & $C_{D}$ & $C_{m_{0}}$ \\
+		\hline
+		Sense efecte terra & 0.8273 & 0.0129 & -0.3737 \\
+		\hline
+		Amb efecte terra & 0.8895 & 0.0082 & -0.4051 \\
+		\hline	
+		Variació & 7.52\% & -36.43\% & 8.40\% \\
+		\hline
+	\end{tabular}
+\caption{Variació dels coeficients amb i sense efecte terra} \label{NoGroundvsGround}
+\end{table}
+
+\section{Allargament}
+
+Per veure la variació dels coeficients aerodinàmics amb l'allargament i l'efecte terra, s'ha pres el valor d'allargament de l'avió ($A_{0}$=26), i s'ha agafat l'espectre que va des de 0.75$A_{0}$ fins a 1.25$A_{0}$. Concretament s'han agafat 21 punts equidistribuïts, de manera que es té $A_{0}$ com a centre de l'espectre. Els resultats obtinguts han estat els següents.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{./plots/CL_A}
+	\caption{Variació del $C_{L}$ amb l'allargament amb efecte terra}
+	\label{CL_A}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{./plots/CD_A}
+	\caption{Variació del $C_{D}$ amb l'allargament amb efecte terra}
+	\label{CD_A}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{./plots/Cm_A}
+	\caption{Variació del $C_{m_{0}}$ amb l'allargament amb efecte terra}
+	\label{Cm_A}
+\end{figure}
+
+Com es pot veure a les figures \ref{CL_A}, \ref{CD_A} i \ref{Cm_A}, el coeficient de sustentació augmenta amb l'allargament mentre que el coeficient de resistència aerodinàmica disminueix. Això és lògic, ja que en augmentar l'allargament, s'augmenta l'envergadura de l'ala per a una mateixa corda, de manera que hi ha més superfície que sustenta. Per l'altra banda, aquest augment de l'envergadura de l'ala fa que els vòrtex de punta d'ala estiguin més allunyats de la resta de l'ala, de manera que generen menys resistència induïda. Si bé és cert que augmenta la resistència paràsita en haver-hi més superfície, aquest augment no compensa la disminució de la resistència induïda. Finalment, degut a l'augment de la sustentació, augmenta també el moment aerodinàmit respecte el caire d'atac.
