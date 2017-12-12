@@ -3,12 +3,12 @@ clear all;
 % Profile geometry
 m_W = 0.02; p_W = 0.4;
 % Wing geometry
-cr_W = 1; ct_W = 1; b_W = 10; sweep_W = 0; dihedral_W = 0; twist_W = 0;
+cr_W = 1.5; ct_W = 1.5; b_W = 9; sweep_W = 0; dihedral_W = 0; twist_W = -8;
 % Air
-alpha = 3; x_offset_W = 0; z_offset_W=0; rho = 1.225;
+alpha = 6; x_offset_W = 0; z_offset_W=0; rho = 1.225;
 Uinf = [1*cosd(alpha),0,1*sind(alpha)];
 % Numerical
-Nx = 2; Ny = 3;
+Nx = 8; Ny = 64;
 deltaY = [b_W/(2*Ny) 0 0];
 [Coord,Vortex,ControlP,DragP,Normal] = wing_assembly (cr_W,ct_W,b_W,...
 Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
