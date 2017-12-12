@@ -75,10 +75,10 @@ x_offset_W=0; z_offset_W=0;
 %% Part 3: Assumption -> Ground Effect. 
 % Plot CL and CD for alpha 6deg, against AR 0.075Ao to 1.25Ao
 % Ao is the nominal aspect ratio
-part3;
+%part3;
 
 %% Part 4: CL and CD and Xcm for Sum(M)=0 when alpha = 6deg
-% part4;
+part4;
 
 %% Part 5: Assumption -> ground effect. CL, CD and CM_cm
 % part5;

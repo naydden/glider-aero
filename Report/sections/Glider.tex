@@ -4,25 +4,37 @@ Un cop estudiat el comportament de l'ala aïllada, s'ha d'estudiar el comportame
 
 Per tal d'estudiar el conjunt, s'assumeix que l'estabilitzador horitzontal te un angle de torsió o twist nul. A més, s'estableix que l'estabilitzador horitzontal només produeix una resistència aerodinàmica parasita ja que presenta un angle de lliscament $\beta=0^{\circ}$ i per tant no genera sustentació ni conseqüentment resistència induïda. 
 
+La geometria del planejador senser es pot veure a la Figura \ref{glider}
+
+ \begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width=0.8\textwidth]{./plots/glider}
+ 	\caption{Configuració geomètrica del planejador}
+ 	\label{glider}
+ \end{figure}
+
 \section{Coeficients Aerodinàmics}
 
-Primerament s'estudia el comportament calculant tant el coeficient de sustentació com el de resistència pel conjunt ala-estabilitzadors en funció de l'angle d'atac (veure Figures \ref{CLvsalpha} y \ref{CDvsalpha}).
+Amb l'objectiu d'estudiar el comportament del conjunt ala-estabilitzadors, es calcula tant el coeficient de sustentació com el de resistència per una configuració de vol amb un angle d'atac de valor $\alpha=6^{\circ}$. 
 
-Per una configuració de vol amb un angle d'atac de valor $\alpha=6^{\circ}$ s'obté: $C_{L} = 0.865 $ y $C_{D} = 0.0276 $
+Els resultats obtinguts son els següents: $C_{L} = 0.859 $ y $C_{D} = 0.0271 $
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\textwidth]{./plots/CLvsalpha_4}
-	\caption{Coeficient de sustentació en funció de l'angle d'atac}
-	\label{CLvsalpha}
-\end{figure}
+%en funció de l'angle d'atac (veure Figures \ref{CLvsalpha} y \ref{CDvsalpha}).
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\textwidth]{./plots/CDvsalpha_4}
-	\caption{Coeficient de resistència en funció de l'angle d'atac}
-	\label{CDvsalpha}
-\end{figure}
+
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[width=0.9\textwidth]{./plots/CLvsalpha_4}
+% 	\caption{Coeficient de sustentació en funció de l'angle d'atac}
+% 	\label{CLvsalpha}
+% \end{figure}
+
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[width=0.9\textwidth]{./plots/CDvsalpha_4}
+% 	\caption{Coeficient de resistència en funció de l'angle d'atac}
+% 	\label{CDvsalpha}
+% \end{figure}
 
 
  
@@ -39,4 +51,7 @@ Per realitzar el calcul s'agafa la congiguració d'angle d'atac vista a l'aparta
 	\label{AlgoritmeCM}
 \end{figure}
 
-Així doncs, un cop realitzat els calculs s'obté $X_{CM} = 0.256 $ 
+Com es pot observar, es tracta d'un algoritme iteratiu. Per tant, un cop definida la geometria, es proposa una distancia de centre de masses per a que el programi pugui a començar a calcular i es caclculen els moments respecte aquest punt proposat i es comproba que el resultat sigui més petit que una tolerància. En aquest cas com el que busquem és el punt per al qual els moments són zero, aquesta tolerància es de $\delta=10^{-9}$. Si això no es cumpleix, es varia la distancia del centre de masses en un increment que depèn del valor de moments obtingut. El procès es repeteix fins que s'obté el valor buscat. 
+
+Així doncs, un cop realitzat els calculs s'obté $X_{CM} = 0.233 $ 
+
