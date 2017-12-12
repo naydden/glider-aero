@@ -4,7 +4,7 @@ function Xcm = x_cm(b,Nx,Ny,cr_W,ct_W,b_W,m_W,p_W,sweep_W,dihedral_W,...
 
 x_offset_W = 0;
 k=0.005; s=0;
-
+MGC=0.5*(cr_W+ct_W);
 while abs(M)>1e-9
  
 % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -14,7 +14,7 @@ while abs(M)>1e-9
     Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
 
 %Horizontal tail
-x_offset_H=x_offset_W+4+0.25*cr_W-0.25*cr_H; z_offset_H=z_offset_W;
+x_offset_H=x_offset_W+4*MGC+0.25*cr_W-0.25*cr_H; z_offset_H=z_offset_W;
 [CoordH,VortexH,ControlPH,DragPH,NormalH] = wing_assembly (cr_H,ct_H,...
     b_H,Nx,Ny,m_H,p_H,sweep_H,dihedral_H,twist_H,x_offset_H,z_offset_H);
 

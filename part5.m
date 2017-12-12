@@ -1,26 +1,18 @@
 % GEOMETRY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 alpha = 0;
 Uinf = [1,0,0];
 
 %Wing
-cr_W=1; ct_W=1*cr_W; b_W=10;
-sweep_W=0; dihedral_W=0; twist_W=0;
-MGC=0.5*(cr_W+ct_W);
-x_offset_W=0; z_offset_W=MGC;
+x_offset_W = -Xcm - cr_W/4; z_offset_W=MGC;
 
 [CoordW,VortexW,ControlPW,DragPW,NormalW] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
 
 %Horizontal tail
-cr_H=0.5*cr_W; ct_H=1*cr_H; b_H=0.25*b_W;
-sweep_H=0; dihedral_H=0; twist_H=0;
-x_offset_H=4*MGC+0.25*cr_W-0.25*cr_H; z_offset_H=z_offset_W;
+x_offset_H=x_offset_W+4*MGC+0.25*cr_W-0.25*cr_H; z_offset_H=z_offset_W;
 
 [CoordH,VortexH,ControlPH,DragPH,NormalH] = wing_assembly (cr_H,ct_H,b_H,Nx,Ny,m_H,p_H,sweep_H,dihedral_H,twist_H,x_offset_H,z_offset_H);
 
 %Vertical tail
-cr_V=1*cr_H; ct_V=1*cr_V; b_V=2/3*b_H;
-sweep_V=0; dihedral_V=0; twist_V=0;
 x_offset_V=x_offset_H; z_offset_V=z_offset_W;
 
 [CoordV,VortexV,ControlPV,DragPV,NormalV] = geometry (cr_V,ct_V,b_V,Nx,Ny,m_V,p_V,sweep_V,dihedral_V,twist_V,x_offset_V,z_offset_V);
@@ -65,7 +57,7 @@ fprintf('Wing+VTP+HTP+Ground case: L= %f D= %f M= %f\n CL= %f CD=%f Cm=%f \n',L,
 
 % PLOTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-figure(4);
+figure(5);
 surf(Coord(:,1:2*(Ny+1),1),Coord(:,1:2*(Ny+1),2),Coord(:,1:2*(Ny+1),3));
 hold on;
 surf(Coord(:,2*(Ny+1)+1:4*(Ny+1),1),Coord(:,2*(Ny+1)+1:4*(Ny+1),2),Coord(:,2*(Ny+1)+1:4*(Ny+1),3));

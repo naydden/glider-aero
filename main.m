@@ -54,6 +54,7 @@ lambda = 0.3;
 A_ratio = 26;
 cr_W=1; ct_W=lambda*cr_W; b_W=A_ratio*0.5*(cr_W+ct_W);
 sweep_W=0; dihedral_W=0;
+MGC=0.5*(cr_W+ct_W);
 
 % %Horizontal tail
 lambdah = lambda;
@@ -61,7 +62,7 @@ cr_H=0.5*cr_W; ct_H=lambda*cr_H; b_H=0.25*b_W;
 sweep_H=0; dihedral_H=0; twist_H=0;
 
 % %Vertical tail
-cr_V=1*cr_H; ct_V=1*cr_V; b_V=4/3*b_H;
+cr_V=1*cr_H; ct_V=lambda*cr_V; b_V=4/3*b_H;
 sweep_V=0; dihedral_V=0; twist_V=0; 
 
 x_offset_W=0; z_offset_W=0;
@@ -81,4 +82,4 @@ x_offset_W=0; z_offset_W=0;
 part4;
 
 %% Part 5: Assumption -> ground effect. CL, CD and CM_cm
-% part5;
+part5;
