@@ -6,14 +6,15 @@ Uinf = [1,0,0];
 %Wing
 cr_W=1; ct_W=1*cr_W; b_W=10;
 sweep_W=0; dihedral_W=0; twist_W=0;
-x_offset_W=0; z_offset_W=1;
+MGC=0.5*(cr_W+ct_W);
+x_offset_W=0; z_offset_W=MGC;
 
 [CoordW,VortexW,ControlPW,DragPW,NormalW] = wing_assembly (cr_W,ct_W,b_W,Nx,Ny,m_W,p_W,sweep_W,dihedral_W,twist_W,x_offset_W,z_offset_W);
 
 %Horizontal tail
 cr_H=0.5*cr_W; ct_H=1*cr_H; b_H=0.25*b_W;
 sweep_H=0; dihedral_H=0; twist_H=0;
-x_offset_H=4+0.25*cr_W-0.25*cr_H; z_offset_H=z_offset_W;
+x_offset_H=4*MGC+0.25*cr_W-0.25*cr_H; z_offset_H=z_offset_W;
 
 [CoordH,VortexH,ControlPH,DragPH,NormalH] = wing_assembly (cr_H,ct_H,b_H,Nx,Ny,m_H,p_H,sweep_H,dihedral_H,twist_H,x_offset_H,z_offset_H);
 
