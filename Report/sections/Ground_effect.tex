@@ -12,6 +12,11 @@ En el cas plantejat, l'ala es troba a una distància de $h=\bar{c}$, i amb un an
 
 Concretament s'estudiarà la diferència del $C_{L}$ i del $C_{D}$, amb i sense presència d'efecte terra. Addicionalment, s'estudiarà com varien aquests valors en funció de l'allargament de l'ala.
 
+\section{Algoritme}
+\label{gndAlg}
+Per tal de calcular l'efecte terra s'ha aplicat el mètode de les imatges. Amb aquesta finalitat s'ha afegit una ala simètrica respecte el terra obtenint així uns coeficients d'influència modificats respecte el cas sense efecte Terra. Aquesta modificació afegeix un cost computacional significatiu, ja que es tenen el doble d'elements que amb una ala sola. Pel que fa al càlcul de les circulacions i dels coeficients aerodinàmics, aquest no varia respecte de l'anterior apartat.
+
+
 \section{Variació dels coeficients}
 
 Agafant l'ala que ja s'ha descrit als apartats anteriors, sense torsió, i amb un angle d'atac de 6$^{\circ}$, es comparen els resultats dels coeficients aerodinàmics pel cas sense efecte terra, i pel cas amb efecte terra. Els resultats es poden veure a la taula \ref{NoGroundvsGround}.
@@ -57,8 +62,6 @@ Per veure la variació dels coeficients aerodinàmics amb l'allargament i l'efec
 	\label{Cm_A}
 \end{figure}
 
-Com es pot veure a les figures \ref{CL_A}, \ref{CD_A} i \ref{Cm_A}, el coeficient de sustentació augmenta amb l'allargament mentre que el coeficient de resistència aerodinàmica disminueix. Això és lògic, ja que en augmentar l'allargament, s'augmenta l'envergadura de l'ala per a una mateixa corda, de manera que hi ha més superfície que sustenta. Per l'altra banda, aquest augment de l'envergadura de l'ala fa que els vòrtex de punta d'ala estiguin més allunyats de la resta de l'ala, de manera que generen menys resistència induïda. Si bé és cert que augmenta la resistència paràsita en haver-hi més superfície, aquest augment no compensa la disminució de la resistència induïda. Finalment, degut a l'augment de la sustentació, augmenta també el moment aerodinàmic respecte el caire d'atac.
+Com es pot veure a les figures \ref{CL_A}, \ref{CD_A} i \ref{Cm_A}, el coeficient de sustentació augmenta amb l'allargament mentre que el coeficient de resistència aerodinàmica disminueix. Això és lògic, ja que en augmentar l'allargament, la punta de l'ala està més allunyada, de manera que hi ha una reducció en la velocitat induïda, cosa que provoca un augment del $C_{L}$. Pel mateix motiu, al ser menor la contribució dels vórtex de punta d'ala, hi ha una reducció de la resistència induïda. Finalment, degut a l'augment del coeficient de sustentació, augmenta també el coeficient de moment aerodinàmic respecte el caire d'atac.
 
-\section{Algoritme}
-\label{gndAlg}
-Per tal de calcular l'efecte terra s'ha aplicat el mètode de les imatges. Amb aquesta finalitat s'ha afegit una ala simètrica respecte el terra obtenint així uns coeficients d'influència modificats respecte el cas sense efecte Terra. Aquesta modificació afegeix un cost computacional significatiu. Pel que fa al càlcul de les circulacions i dels coeficients aerodinàmics, aquest no varia respecte de l'anterior apartat.
+Com es pot veure a les figures, aquesta variació dels coeficients no té un caràcter lineal, sinó que és assimptòtic. En el cas d'allargament infinit, una ala infinita, els coeficients aerodinàmics de l'ala esdevenen iguals als coeficients del perfil, que són els coeficients aerodiàmics sense efectes tridimensionals.

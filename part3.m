@@ -3,12 +3,12 @@
 alpha = 6;
 Uinf = [1,0,0];
 
-A=linspace(0.75*A_ratio,1.25*A_ratio,1);
+A=linspace(0.75*A_ratio,1.25*A_ratio,21);
 
 MGC=0.5*(cr_W+ct_W);
 b_W=A*MGC;
 sweep_W=0; dihedral_W=0; twist_W=0; 
-x_offset_W=0; z_offset_W=1000*MGC;
+x_offset_W=0; z_offset_W=1*MGC;
 
 L=zeros(1,length(A));
 Dind=zeros(1,length(A));
@@ -62,21 +62,21 @@ axis equal;
 
 figure(2);
 plot(A,CL);
-title('CL per a diferents valors de allargament');
 xlabel('Allargament');
 ylabel('CL');
-%createfigure(A, CL, 'A', 'Allargament', 'CL', 'CL en funciï¿½ del allargament','CL_A');
+grid on;
+% createfigure(A, CL, 'A', 'Allargament', 'CL', 'CL en funció del allargament','CL_A');
 
 figure(3);
 plot(A,CD);
-title('CD per a diferents valors de allargament');
 xlabel('Allargament');
 ylabel('CD');
-%createfigure(A, CD, 'A', 'Allargament', 'CD', 'CD en funciï¿½ del allargament','CD_A');
+grid on;
+% createfigure(A, CD, 'A', 'Allargament', 'CD', 'CD en funció del allargament','CD_A');
 
 figure(4);
 plot(A,Cm);
-title('Cm per a diferents valors de allargament');
 xlabel('Allargament');
 ylabel('Cm');
-%createfigure(A, Cm, 'A', 'Allargament', 'Cm', 'Cm en funciï¿½ del allargament','Cm_A');
+grid on;
+% createfigure(A, Cm, 'A', 'Allargament', 'Cm', 'Cm en funció del allargament','Cm_A');
