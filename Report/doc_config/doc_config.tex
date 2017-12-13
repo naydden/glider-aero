@@ -102,7 +102,7 @@
 \usepackage{colortbl}               % Use some other color options.
 	\definecolor{UPC_blue}{RGB}{67,142,197}
 	\definecolor{lightgrey}{RGB}{166,166,166}
-\usepackage{hyperref}               % Provides LeTeX the hability to create hyperlinks.
+\usepackage[linktocpage=true]{hyperref}               % Provides LeTeX the hability to create hyperlinks.
 
 \usepackage{inputenc}         % It makes possible to use roman numbers for the pages before the first chapter and arabic for the rest of the document
 
@@ -127,7 +127,10 @@
 \usepackage{float}
 
 \usepackage{import}
-
 \usepackage{makecell}
-%\usepackage{chngcntr}
-%\counterwithin{figure}{chapter}
+\usepackage{chngcntr}
+\counterwithin{figure}{chapter}
+\counterwithin{table}{chapter}
+\counterwithin{equation}{chapter}
+
+\usepackage{bm}

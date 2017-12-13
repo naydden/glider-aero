@@ -1,5 +1,5 @@
 \chapter{Convergència}
-Com que el mètode proposat de Vortex lattice és un mètode numèric, cal determinar el número de panells en els que es divideix l'ala a l'hora de fer els càlculs. Aquest nombre determinarà la validesa dels resultats, ja que a major nombre de panells més precisió, però també més cost computacional.
+Com que el mètode proposat de \textit{Vortex Lattice} és un mètode numèric, cal determinar el número de panells en els que es divideix l'ala a l'hora de fer els càlculs. Aquest nombre determinarà la validesa dels resultats, ja que a major nombre de panells més precisió, però també més cost computacional.
 
 A fi d'estimar el nombre de divisions necessàries, s'ha realitzat un anàlisi de convergència. S'ha començat pel nombre de divisions en l'eix Y. En aquest cas s'ha mantingut constant els panells en l'eix X ($N_{x}=10$), i s'ha calculat el valor del coeficient de sustentació amb diferent número de panells a l'eix Y. Tot això amb un angle d'atac constant de 2$^{\circ}$. Els resultats obtinguts es mostren a la figura \ref{ny}.
 
@@ -23,13 +23,6 @@ S'ha executat el mateix anàlisi per a l'eix X, en aquest cas mantenint constant
 	\label{nx}
 \end{figure}
 
-En quant als resultats, es s'observa com la sustentació tendeix a un valor de $C_{L}=0.4111$, valor molt semblant a l'obtingut anteriorment. Comparant el diferent número de panells, s'observa com en el cas de 2 l'error és de $0.05\%$, però a partir d'aquí ja va disminuint.
+En quant als resultats, s'observa com la sustentació tendeix a un valor de $C_{L}=0.4111$, valor molt semblant a l'obtingut anteriorment. Comparant el diferent número de panells, s'observa com en el cas de 2 l'error és de $0.05\%$, però a partir d'aquí ja va disminuint.
 
 Tenint en compte tots aquests resultats, s'ha optat per realitzar els càlculs que es troben en aquest informe amb un nombre de divisions $N_{x}=5$ i $N_{y}=20$.
-
-\newpage
-miau miau miau
-\begin{figure}[h]
-		\includegraphics[width=\textwidth]{./plots/test}
-		\caption{bau bau}
-\end{figure}
