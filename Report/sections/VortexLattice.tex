@@ -1,8 +1,8 @@
 \chapter{Vortex lattice}
 
-El mètode de resolució emprat és el \textit{Vortex lattice}. Aquest es basa en la teoria de \textit{lifting line} de Prandtl, segons la qual la sustentació en una ala es pot plantejar com una sèrie de segments de vorticitat que generen unes velocitats induïdes als punts del seu voltant. Cal recalcar que aquesta teoria es troba dins del marc de fluid potencial, i per tant no té en compte efectes de viscositat.
+El mètode de resolució emprat és el \textit{vortex lattice}. Aquest es basa en la teoria de \textit{lifting line} de Prandtl, segons la qual la sustentació en una ala es pot plantejar com una sèrie de segments de vorticitat que generen unes velocitats induïdes als punts del seu voltant. Cal recalcar que aquesta teoria es troba dins del marc de fluid potencial, i per tant no té en compte efectes de viscositat.
 
-Aquest mètode s'utilitza per resoldre l'aerodinàmica d'ales primes, ja que en els seus càlculs només té en compte els efectes de la curvatura i de l'angle d'atac, suposant que el perfil no té espessor. Es diferencia d'altres mètodes com el \textit{Lifting line} perquè permet el càlcul d'ales de qualsevol \textit{aspect ratio}.
+Aquest mètode s'utilitza per resoldre l'aerodinàmica d'ales primes, ja que en els seus càlculs només té en compte els efectes de la curvatura i de l'angle d'atac, suposant que el perfil no té espessor. Es diferencia d'altres mètodes com el \textit{lifting line} perquè permet el càlcul d'ales de qualsevol \textit{aspect ratio}.
 
 Per tal de simplificar el plantejament del mètode de \textit{vortex lattice} a continuació es descriu per la resolució d'una ala aïllada. En els següents apartats ja es descriuen les possibles modificacions que cal tenir en compte en afegir l'efecte terra o els efectes dels estabilitzadors vertical i horitzontal.
 
@@ -15,11 +15,11 @@ El següent pas és trobar la disposició dels anells de vorticitat. Aquest mèt
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{./plots/discretitzacio}
-	\caption{Discretització d'una semi-ala \cite{LizandraDalmases2017b}}
+	\caption[Discretització d'una semi-ala]{Discretització d'una semi-ala \cite{LizandraDalmases2017b}}
 	\label{discretit}
 \end{figure}
 
-En la mateixa figura també es troben representats en color vermell els punts de control. Aquests són els punts on es calcula la velocitat induïda generada per tots els anells de vorticitat de l'ala. La velocitat induïda en un punt de control $i$ deguda a una anell de vorticitat $j$ és la suma de les velocitats induïdes per cada un dels segments que formen l'anell de vorticitat. És a dir:
+En la mateixa figura també es troben representats en color vermell els punts de control. Aquests són els punts on es calcula la velocitat induïda generada per tots els anells de vorticitat de l'ala. La velocitat induïda en un punt de control $i$ deguda a un anell de vorticitat $j$ és la suma de les velocitats induïdes per cada un dels segments que formen l'anell de vorticitat. És a dir:
 \begin{equation}
 \vec{v}_{ij}=\vec{v}_{ij_{AB}}+\vec{v}_{ij_{BC}}+\vec{v}_{ij_{CD}}+\vec{v}_{ij_{DA}}
 \end{equation}
@@ -33,7 +33,7 @@ No obstant, en el càlcul de les velocitats induïdes pels anells de vorticitat 
 \begin{equation}
 \vec{v}_{ij_{segment}}=\frac{1}{4\pi}\frac{\vec{u}_{r}\times\vec{r}}{|\vec{u}_{r}\times\vec{r}|^{2}}
 \end{equation}
-on $u_{r}$ és el vector unitari que indica el sentit del segment i $r$ és la distancia entre el punt de control i el punt on comença o acaba el segment.
+on $u_{r}$ és el vector unitari que indica el sentit del segment i $\vec{r}$ és la distancia entre el punt de control i el punt on comença o acaba el segment.
 
 Per tant, la velocitat induïda final en cada punt de control serà la suma de les velocitat calculades per a cada vòrtex multiplicada pel seu valor de circulació. És a dir:
 \begin{equation}
@@ -59,7 +59,7 @@ i $b_{i}$ és el terme de la dreta (RHS):
 b_{i}=-\vec{U}_{\infty}\cdot\vec{n}_{i}
 \end{equation}
 
-Finalment, un cop obtingut el valor de la circulació, es pot procedir al càlcul de les forces i moments aerodinàmics. A cada element, la força es veu aplicada al punt $\overline{x}_{p_{i,j}}$, definit a la figura \ref{xp}.
+Finalment, un cop obtingut el valor de la circulació, es pot procedir al càlcul de les forces i moments aerodinàmics. En cada element, la força es veu aplicada al punt $\overline{x}_{p_{i,j}}$, definit a la figura \ref{xp}.
 
 \begin{figure}[H]
 \centering
@@ -77,7 +77,7 @@ Finalment, un cop obtingut el valor de la circulació, es pot procedir al càlcu
 \end{subfigure}
 \caption{Aplicació de la força aerodinàmica.}
 \end{figure}
-Per trobar la sustentació cal projectar a l'eix perpendicular a la velocitat incident. Com treballem amb angles petits, la força de sustentació es simplifica:
+Per trobar la sustentació cal projectar la força en l'eix perpendicular a la velocitat incident. Com que es treballa amb angles petits, la força de sustentació es simplifica:
 \begin{equation}
 L=F\cos{\alpha_i} \approx F = \sum_{j=1}^{N_{y}}\sum_{i=1}^{N_{x}}\Delta L_{ij}=\rho U_{\infty}\sum_{j=1}^{N_{y}}\left[\Gamma_{1,j}+\sum_{i=2}^{N_{x}}\left(\Gamma_{i,j}-\Gamma_{i-1,j}\right)\right]\Delta y_{i}
 \end{equation}
@@ -88,7 +88,7 @@ on $U_{\infty}$ és el mòdul de la velocitat aerodinàmica, $\rho=1,225 kg/m^{3
 
 El càlcul de la resistència aerodinàmica és més complicat, ja que aquesta consta de dos termes: resistència paràsita i resistència induïda.
 
-Ámb el mètode del \textit{Vortex Lattice} es calcula solament la induïda. Així, cal projectar la força en la direcció de la velocitat incident. Per nomenclatura, $\alpha_i = w $.
+Amb el mètode del \textit{vortex lattice} es calcula solament la induïda. Així, cal projectar la força en la direcció de la velocitat incident. Per nomenclatura, $\alpha_i = w $.
 \begin{equation}
 D_{ind}=F\sin{\alpha_i} \approx F\alpha_i = Fw
 \end{equation}
@@ -100,7 +100,7 @@ I on l'angle induït es defineix com:
 (w)_{i,j}=\frac{\left[\vec{U}_{\infty} \times \vec{V}_{ind_{i,j}}\right]\vec{j}}{|\vec{U_{\infty}}|}
 \end{equation}
 
-Per calcular el drag paràsit que origina l'ala es disposa de la relació $C_l(C_d)$ per cada perfil. Un cop s'ha obtingut la sustentació per cada element, es pot sumar solament la que correspon a una secció d'ala, i obtenir així el seu respectiu drag paràsit.
+Per calcular el drag paràsit que origina l'ala es disposa de la relació $C_d(C_l)$ per cada perfil. Un cop s'ha obtingut la sustentació per cada element, es pot sumar solament la que correspon a una secció d'ala, i obtenir així el seu respectiu drag paràsit.
 \begin{itemize}
 	\item NACA 2412. $C_d$ = 0.0063 - 0.0033$C_l$+0.0067$C_{l}^2$
 	\item NACA 0009. $C_d$ = 0.0055 + 0.0045$C_{l}^2$
@@ -114,7 +114,7 @@ Finalment, $ D = D_{par} + D_{ind}$.
 C_{D}=\frac{D}{\frac{1}{2}\rho U_{\infty}^{2}S}
 \end{equation}
 
-Pel que fa al moment, simplement cal multiplicar la sustentació per la distància del punt $\overline{x}_{p_{i,j}}$ al punt respecte el qual volem obtenir el moment.
+Pel que fa al moment, simplement cal multiplicar la sustentació per la distància del punt $\overline{x}_{p_{i,j}}$ al punt respecte el qual es vol obtenir el moment.
 \begin{equation}
 M = \sum_{j=1}^{N_{y}}\sum_{i=1}^{N_{x}}\overline{x}_{p_{i,j}}\Delta L_{ij}
 \end{equation}
@@ -129,6 +129,6 @@ L'algoritme utilitzat per a resoldre el plantejament proposat es troba esquemati
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.170]{./plots/algoritmewing}
-	\caption{Algoritme coeficients aerodinàmics.}
+	\caption{Algoritme de càlcul dels coeficients aerodinàmics}
 \end{figure}
-Per implementar el \textit{Vortex Lattice} eficientment, el codi s'ha dividit en funcions  amb responsabilitats molt limitades. Per exemple, una funció calcula solament la velocitat induïda per un segment mentre que una altra recorre tots els segments i calcula els coeficients d'influència en cada punt de control cridant a la primera funció múltiples vegades. Un tercera funció calcula les circulacions i amb aquestes una calcula la sustentació, una  la resistència aerodinàmica i una el moment. Així successivament per resoldre tots els apartats. Cada funció s'ha intentat validar amb \textit{Unit Tests} per tal d'assegurar que no apareixerien problemes quan el codi creixi.
+Per implementar el \textit{vortex lattice} eficientment, el codi s'ha dividit en funcions  amb responsabilitats molt limitades. Per exemple, una funció calcula solament la velocitat induïda per un segment mentre que una altra recorre tots els segments i calcula els coeficients d'influència en cada punt de control cridant la primera funció múltiples vegades. Un tercera funció calcula les circulacions i amb aquestes una calcula la sustentació, una  la resistència aerodinàmica i una el moment. Així successivament per resoldre tots els apartats. Cada funció s'ha intentat validar amb \textit{Unit Tests} per tal d'assegurar que no apareixerien problemes quan el codi creixés.

@@ -6,11 +6,12 @@ L'únic paràmetre geomètric de l'ala que queda per determinar és l'angle de t
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.1]{./plots/algoritmeZLangle}
+	\caption{Algoritme de càlcul de l'angle de sustentació nul·la}
 \end{figure}
 
 Com s'observa, es tracta d'un algoritme iteratiu. Un cop introduïdes les dades geomètriques del planejador, es proposa un angle d'atac inicial per tal que el programa pugui començar a fer càlculs. Es calcula el coeficient de sustentació i es comprova si aquest és més petit que una tolerància proposada, en aquest cas $\delta=10^{-3}$. Si no és així, es varia l'angle d'atac en un increment que depèn del valor del coeficient de sustentació calculat anteriorment. Aquest procés es va repetint fins que s'obté un coeficient de sustentació més petit que $\delta$.
 
-Finalment, el següent pas és el càlcul del coeficient de resistència per a l'angle d'atac obtingut. En aquest càlcul d'imposa que la sustentació és nul·la, per evitar possibles errors deguts a la tolerància.
+Finalment, el següent pas és el càlcul del coeficient de resistència per a l'angle d'atac obtingut. En aquest càlcul s'imposa que la sustentació és nul·la, per evitar possibles errors deguts a la tolerància.
 
 \begin{figure}[h]
 	\centering

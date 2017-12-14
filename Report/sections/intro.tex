@@ -1,6 +1,6 @@
 \chapter{Introducció}
 
-L'objectiu principal d'aquest informe és l'estudi de l'aerodinàmica d'un planejador i l'efecte que té sobre ella l'efecte terra. Per tal de poder resoldre el problema plantejat, s'utilitza el mètode numèric de Vortex lattice.
+L'objectiu principal d'aquest informe és l'estudi de l'aerodinàmica d'un planejador i l'efecte que té sobre ella l'efecte terra. Per tal de poder resoldre el problema plantejat, s'utilitza el mètode numèric de \textit{vortex lattice}.
 
 Es comença analitzant l'aerodinàmica de l'ala aïllada per poder estudiar com es troba influenciada pels paràmetres geomètrics, i, un cop determinada la geometria final de l'ala, es procedeix a analitzar l'efecte sòl.
 
@@ -9,11 +9,11 @@ A continuació, s'afegeixen els estabilitzadors vertical i horitzontal i, de nou
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{plots/enunciat.png}
-	\caption{Esquema del planejador \cite{LizandraDalmases2017a}}
+	\caption[Esquema del planejador]{Esquema del planejador \cite{LizandraDalmases2017a}}
 	\label{enunciat}
 \end{figure}
 
-L'esquema del planejador, així com els paràmetres geomètrics i els eixos de referència utilitzats, es troben definits en la Figura~\ref{enunciat}. A més, algunes de les relacions entre aquests paràmetres venen fixades per l'enunciat (veure Taula~\ref{tab:Dades}).
+L'esquema del planejador, així com els paràmetres geomètrics i els eixos de referència utilitzats, es troben definits en la figura~\ref{enunciat}. A més, algunes de les relacions entre aquests paràmetres venen fixades per l'enunciat (veure taula~\ref{tab:Dades}).
 
 \begin{table} [H]
 	\centering
@@ -25,11 +25,11 @@ L'esquema del planejador, així com els paràmetres geomètrics i els eixos de r
 		$\frac{1}{8}$ & $\frac{2}{3}$ & $4$ & $>6$\\
 		\hline	
 	\end{tabular}
-\caption{Relacions geomètriques fixades} \label{tab:Dades}
+\caption[Relacions geomètriques fixades]{Relacions geomètriques fixades \cite{LizandraDalmases2017a}} \label{tab:Dades}
 \end{table}
 
 
-A continuació, per tal de definir els paràmetres bàsics de la geometria de l'ala del planejador no establerts, s'ha agafat com a referència l'avió SZD-56 Diana 2 de Diana Sailplanes \cite{Kubrynski2006}. Els valors obtinguts es mostren a la Taula~\ref{tab:WingGeom}.
+A continuació, per tal de definir els paràmetres bàsics de la geometria de l'ala del planejador no establerts, s'ha agafat com a referència l'avió SZD-56 Diana 2 de Diana Sailplanes \cite{Kubrynski2006}. Els valors obtinguts es mostren a la taula~\ref{tab:WingGeom}.
 
 \begin{table} [h]
 	\centering
@@ -44,7 +44,7 @@ A continuació, per tal de definir els paràmetres bàsics de la geometria de l'
 \caption{Paràmetres geomètrics de l'ala} \label{tab:WingGeom}
 \end{table}
 
-Un cop definida la geometria alar, s'ha de definir la geometria dels estabilitzadors tant horitzontal com vertical. Les dimensions escullides es mostren a Taules~ \ref{tab:HSGeom} y \ref{tab:VSGeom}..
+Un cop definida la geometria alar, s'ha de definir la geometria dels estabilitzadors tant horitzontal com vertical. Les dimensions escollides es mostren a les taules~ \ref{tab:HSGeom} y \ref{tab:VSGeom}..
 
 \begin{table} [h]
 	\centering
